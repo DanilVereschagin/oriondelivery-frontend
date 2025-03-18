@@ -22,3 +22,5 @@
 - Tailwind (3.4.1)
 - ShadCN (2.3.0)
 - licude-icons (Последняя)
+- react-use (17.5.0)
+- Zustand (4.5.2)
