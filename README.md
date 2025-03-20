@@ -24,3 +24,5 @@
 - licude-icons (Последняя)
 - react-use (17.5.0)
 - Zustand (4.5.2)
+- PostgreSQL (Последняя)
+- Prisma (Последняя)
