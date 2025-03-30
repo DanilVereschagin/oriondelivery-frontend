@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FilterCheckbox, FilterCheckboxProps } from './FilterCheckbox';
 import { Input, Skeleton } from '../ui';
 
@@ -14,7 +14,6 @@ interface Props {
 	loading?: boolean;
 	searchInputPlaceholder?: string;
 	onClickCheckbox?: (id: string) => void;
-	defaultValues?: string[];
 	selectedValues?: Set<string>;
 	name?: string;
 	className?: string;
@@ -28,13 +27,28 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	loading,
 	searchInputPlaceholder = 'Поиск...',
 	onClickCheckbox,
-	defaultValues,
 	selectedValues,
 	name,
 	className,
 }) => {
 	const [showAll, setShowAll] = React.useState(false);
 	const [searchValue, setSearchValue] = React.useState('');
+	const [sortedItems, setSortedItems] = React.useState<Item[]>([]);
+	const effectiveLimitRef = React.useRef(limit);
+
+	useEffect(() => {
+		const selectedCount = selectedValues?.size || 0;
+		const minRequiredLimit = Math.max(limit, selectedCount);
+
+		effectiveLimitRef.current = minRequiredLimit;
+
+		const newItems = [
+			...items.filter((item) => selectedValues?.has(item.value)),
+			...items.filter((item) => !selectedValues?.has(item.value)),
+		];
+
+		setSortedItems(newItems);
+	}, [items, limit]);
 
 	if (loading) {
 		return (
@@ -50,10 +64,10 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 	}
 
 	const list = showAll
-		? items.filter((item) =>
+		? sortedItems.filter((item) =>
 				item.text.toLowerCase().includes(searchValue.toLowerCase())
 		  )
-		: (defaultItems || items).slice(0, limit);
+		: (defaultItems || sortedItems).slice(0, effectiveLimitRef.current);
 
 	const onChangeSearchInput = (value: string) => {
 		setSearchValue(value);
@@ -87,7 +101,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
 				))}
 			</div>
 
-			{items.length > limit && (
+			{items.length > effectiveLimitRef.current && (
 				<div className={showAll ? 'border-t border-t-violet-200 mt-4' : ''}>
 					<button
 						onClick={() => setShowAll(!showAll)}

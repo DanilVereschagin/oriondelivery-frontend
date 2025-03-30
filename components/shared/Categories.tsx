@@ -3,48 +3,29 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useCategoryStore } from '@/store/category';
+import { Category } from '@prisma/client';
 
 interface Props {
+	categories: Category[];
 	className?: string;
 }
 
-const categories = [
-	{
-		id: 1,
-		name: 'Пицца',
-	},
-	{
-		id: 2,
-		name: 'Завтраки',
-	},
-	{
-		id: 3,
-		name: 'Комбо',
-	},
-	{
-		id: 4,
-		name: 'Закуски',
-	},
-	{
-		id: 5,
-		name: 'Салаты',
-	},
-	{
-		id: 6,
-		name: 'Супы',
-	},
-	{
-		id: 7,
-		name: 'Десерты',
-	},
-	{
-		id: 8,
-		name: 'Напитки',
-	},
-];
+export const Categories: React.FC<Props> = ({ categories, className }) => {
+	const categoryActiveId = useCategoryStore((state) => state.activeId);
+	const setActiveCategory = useCategoryStore((state) => state.setActiveId);
 
-export const Categories: React.FC<Props> = ({ className }) => {
-	const categotyActiveId = useCategoryStore((state) => state.activeId);
+	const handleCategoryClick = (categoryId: number, categoryName: string) => {
+		const targetElement = document.getElementById(categoryName);
+		if (targetElement) {
+			targetElement.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
+		}
+
+		setActiveCategory(categoryId);
+	};
+
 	return (
 		<div
 			className={cn(
@@ -53,17 +34,20 @@ export const Categories: React.FC<Props> = ({ className }) => {
 			)}
 		>
 			{categories.map((category, index) => (
-				<a
+				<div
 					className={cn(
 						'flex items-center font-bold h-11 rounded-2xl px-5 ',
-						categotyActiveId === category.id &&
+						categoryActiveId === category.id &&
 							'bg-white shadow-md shadow-violet-700 text-primary'
 					)}
-					href={`/#${category.name}`}
 					key={index}
 				>
-					<button>{category.name}</button>
-				</a>
+					<button
+						onClick={() => handleCategoryClick(category.id, category.name)}
+					>
+						{category.name}
+					</button>
+				</div>
 			))}
 		</div>
 	);
