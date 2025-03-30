@@ -1,7 +1,5 @@
 import {
-	Categories,
 	Container,
-	SortPopup,
 	Title,
 	TopBar,
 	Filters,

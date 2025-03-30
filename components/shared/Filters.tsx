@@ -1,15 +1,72 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import { Title } from './Title';
 import { FilterCheckbox } from './FilterCheckbox';
 import { Input } from '../ui';
 import { RangeSlider } from './RangeSlider';
 import { CheckboxFiltersGroup } from './CheckboxFiltersGroup';
+import { useFilterIngredients } from '@/hooks/useFilterIngredients';
+import { usePriceStore } from '@/store/price';
+import { useDebounce, useSet } from 'react-use';
+import qs from 'qs';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Props {
 	className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const { ingredients, selectedIngredients, onSelectId, onAdd } =
+		useFilterIngredients();
+	const { priceFrom, priceTo, setPriceFrom, setPriceTo } = usePriceStore();
+	const [sizes, { toggle: toggleSizes }] = useSet(
+		new Set<string>(
+			searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : []
+		)
+	);
+	const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
+		new Set<string>(
+			searchParams.has('pizzaTypes')
+				? searchParams.get('pizzaTypes')?.split(',')
+				: []
+		)
+	);
+
+	useEffect(() => {
+		setPriceFrom(Number(searchParams.get('priceFrom') || 0));
+		setPriceTo(Number(searchParams.get('priceTo') || 0));
+
+		const items = searchParams.get('ingredients')?.split(',');
+
+		if (items) {
+			for (const item of items) {
+				onAdd(item);
+			}
+		}
+	}, [onAdd, searchParams, setPriceFrom, setPriceTo]);
+
+	useDebounce(
+		() => {
+			const query = {
+				priceFrom,
+				priceTo,
+				sizes: Array.from(sizes),
+				pizzaTypes: Array.from(pizzaTypes),
+				ingredients: Array.from(selectedIngredients),
+			};
+
+			const queryString = qs.stringify(query, {
+				arrayFormat: 'comma',
+			});
+
+			router.push(`?${queryString}`, { scroll: false });
+		},
+		200,
+		[priceFrom, priceTo, selectedIngredients, sizes, pizzaTypes]
+	);
+
 	return (
 		<div className={className}>
 			<Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
@@ -27,36 +84,80 @@ export const Filters: React.FC<Props> = ({ className }) => {
 						placeholder='0'
 						min={0}
 						max={10000}
-						defaultValue={0}
+						value={priceFrom}
+						onChange={(e) => setPriceFrom(+e.target.value)}
 					/>
-					<Input type='number' placeholder='10000' min={0} max={10000} />
+					<Input
+						type='number'
+						placeholder='10000'
+						min={0}
+						max={10000}
+						value={priceTo}
+						onChange={(e) => setPriceTo(+e.target.value)}
+					/>
 				</div>
 
-				<RangeSlider min={0} max={10000} step={10} value={[0, 10000]} />
+				<RangeSlider
+					min={0}
+					max={10000}
+					step={10}
+					value={[priceFrom || 0, priceTo || 10000]}
+					onValueChange={([from, to]) => {
+						setPriceFrom(from);
+						setPriceTo(to);
+					}}
+				/>
 			</div>
+
+			<CheckboxFiltersGroup
+				title='Тип теста'
+				className='mt-5'
+				items={[
+					{
+						text: 'Тонкое',
+						value: '1',
+					},
+					{
+						text: 'Традиционное',
+						value: '2',
+					},
+				]}
+				onClickCheckbox={togglePizzaTypes}
+				selectedValues={pizzaTypes}
+				name='pizzaTypes'
+			/>
+
+			<CheckboxFiltersGroup
+				title='Размеры пиццы'
+				className='mt-5'
+				items={[
+					{
+						text: '30см',
+						value: '30',
+					},
+					{
+						text: '35см',
+						value: '35',
+					},
+					{
+						text: '40см',
+						value: '40',
+					},
+				]}
+				onClickCheckbox={toggleSizes}
+				selectedValues={sizes}
+				name='sizes'
+			/>
 
 			<CheckboxFiltersGroup
 				title='Ингредиенты'
 				className='mt-5'
 				limit={6}
-				defaultItems={[
-					{ text: 'Сыр', value: '1' },
-					{ text: 'Курица', value: '2' },
-					{ text: 'Салат', value: '3' },
-					{ text: 'Бекон', value: '4' },
-					{ text: 'Помидор', value: '5' },
-					{ text: 'Солёные огурцы', value: '6' },
-				]}
-				items={[
-					{ text: 'Сыр', value: '1' },
-					{ text: 'Курица', value: '2' },
-					{ text: 'Салат', value: '3' },
-					{ text: 'Бекон', value: '4' },
-					{ text: 'Помидор', value: '5' },
-					{ text: 'Солёные огурцы', value: '6' },
-					{ text: 'Грибы', value: '7' },
-					{ text: 'Креветки', value: '8' },
-				]}
+				items={ingredients}
+				loading={ingredients.length === 0}
+				onClickCheckbox={onSelectId}
+				selectedValues={selectedIngredients}
+				name='ingredients'
 			/>
 		</div>
 	);
