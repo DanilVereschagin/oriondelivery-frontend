@@ -1,6 +1,7 @@
 import { Product } from '@prisma/client';
 import { axiosInstance } from './instance';
 import { ApiRoutes } from './routes';
+import { prisma } from '@/prisma/PrismaClient';
 
 export const search = async (query: string): Promise<Product[]> => {
 	const { data } = await axiosInstance.get<Product[]>(
@@ -13,4 +14,14 @@ export const search = async (query: string): Promise<Product[]> => {
 	);
 
 	return data;
+};
+
+export const getById = async (id: string): Promise<Product> => {
+	const product: Product = await prisma.product.findFirst({
+		where: {
+			id: Number(id),
+		},
+	});
+
+	return product;
 };

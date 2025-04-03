@@ -323,8 +323,7 @@ export const products = [
 export const pizzas = [
 	{
 		name: 'Чилл Грилл',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/019591c69fac7921a27e4ecd8c99f9df.avif',
+		imageUrl: '/assets/Чилл_Грилл.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 8 }, { id: 14 }, { id: 16 }, { id: 5 }],
@@ -332,8 +331,7 @@ export const pizzas = [
 	},
 	{
 		name: 'Баварская',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/019591a2e222794a81731c99f3cc34ec.avif',
+		imageUrl: '/assets/Баварская.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 21 }, { id: 14 }, { id: 15 }, { id: 16 }, { id: 5 }],
@@ -341,8 +339,7 @@ export const pizzas = [
 	},
 	{
 		name: 'Мясной микс с говядиной и колбасками',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/0194d4f6904975a5a6427e297591980d.avif',
+		imageUrl: '/assets/Мясной_микс.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 2 }, { id: 21 }, { id: 11 }, { id: 1 }, { id: 5 }],

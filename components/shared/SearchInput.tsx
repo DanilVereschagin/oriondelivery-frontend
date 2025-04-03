@@ -76,7 +76,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 								key={product.id}
 								onClick={onClickProduct}
 							>
-								<img
+								<Image
 									className='rounded-lg h-8 w-8'
 									src={product.imageUrl}
 									width={32}
