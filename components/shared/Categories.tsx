@@ -36,7 +36,7 @@ export const Categories: React.FC<Props> = ({ categories, className }) => {
 			{categories.map((category, index) => (
 				<div
 					className={cn(
-						'flex items-center font-bold h-11 rounded-2xl px-5 ',
+						'flex items-center font-bold h-11 rounded-2xl px-5 text-black',
 						categoryActiveId === category.id &&
 							'bg-white shadow-md shadow-violet-700 text-primary'
 					)}

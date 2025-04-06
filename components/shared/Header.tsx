@@ -6,6 +6,7 @@ import { Button } from '../ui';
 import { ShoppingCart, UserRound, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { SearchInput } from './SearchInput';
+import { ModeToggle } from '../ui/toggle';
 
 interface Props {
 	className?: string;
@@ -32,6 +33,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 				</div>
 
 				<div className='flex items-center gap-3'>
+					<ModeToggle />
 					<div>
 						<Button className='group relative'>
 							<b>520₽</b>

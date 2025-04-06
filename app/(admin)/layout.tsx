@@ -1,12 +1,16 @@
+import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
-import './globals.css';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import '../globals.css';
 
 const nunito = Nunito({
 	subsets: ['cyrillic'],
 	variable: '--font-nunito',
 	weight: ['400', '500', '600', '700', '800', '900'],
 });
+
+export const metadata: Metadata = {
+	title: 'ORION Delivery',
+};
 
 export default function RootLayout({
 	children,
@@ -15,18 +19,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<head>
-				<link data-rh='true' rel='icon' href='/logo.jpg' />
-			</head>
 			<body className={nunito.className}>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='system'
-					enableSystem
-					disableTransitionOnChange
-				>
-					{children}
-				</ThemeProvider>
+				<main className='min-h-screen'>{children}</main>
 			</body>
 		</html>
 	);
