@@ -21,6 +21,10 @@ export const getById = async (id: string): Promise<Product> => {
 		where: {
 			id: Number(id),
 		},
+		include: {
+			ingredients: true,
+			variants: true,
+		},
 	});
 
 	return product;

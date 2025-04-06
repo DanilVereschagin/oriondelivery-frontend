@@ -7,6 +7,7 @@ import React from 'react';
 
 async function Product({ params: { id } }: { params: { id: string } }) {
 	const product = await getById(id);
+	const isPizza = Boolean(product.variants[0]?.pizzaType);
 
 	if (!product) {
 		return notFound();
@@ -20,12 +21,13 @@ async function Product({ params: { id } }: { params: { id: string } }) {
 					alt={product.name}
 					className='mb-10'
 					size={40}
+					isPizza={isPizza}
 				/>
-				<div className='w-[490px] bg-violet-50 p-7'>
+				<div className='w-[490px] bg-violet-100 p-7 rounded-lg'>
 					<Title
 						text={product.name}
 						size='md'
-						className='font-extrabold mb-1'
+						className='font-extrabold mb-1 text-black'
 					/>
 
 					<p className='text-violet-600'>
@@ -36,6 +38,7 @@ async function Product({ params: { id } }: { params: { id: string } }) {
 					</p>
 
 					<GroupVariants
+						className='text-black'
 						selectedValue='2'
 						items={[
 							{
