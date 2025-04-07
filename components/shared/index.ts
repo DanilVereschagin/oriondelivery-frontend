@@ -12,5 +12,6 @@ export { ProductCard } from './ProductCard';
 export { ProductsGroupList } from './ProductsGroupList';
 export { SearchInput } from './SearchInput';
 export { ProductImage } from './ProductImage';
+export { Ingredient } from './Ingredient';
 export * from './modals';
 export * from './forms';

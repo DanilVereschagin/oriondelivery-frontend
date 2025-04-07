@@ -86,12 +86,12 @@ html {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-	background: #dbdadd;
+	background: #9a2dff;
 	border-radius: 6px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-	background: #dbdadd;
+	background: #9a2dff;
 }
 
 @layer utilities {

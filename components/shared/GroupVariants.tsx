@@ -36,7 +36,8 @@ export const GroupVariants: React.FC<Props> = ({
 					className={cn(
 						'flex items-center justify-center h-[40px] px-5 flex-1 rounded-3xl transition-all duration-400 text-sm text-black',
 						{
-							'bg-white text-violet-800 shadow': item.value === selectedValue,
+							'bg-gray-50 text-violet-800 shadow h-[40px]':
+								item.value === selectedValue,
 							'text-gray-500 opacity-50 pointer-events-none': item.disabled,
 						}
 					)}

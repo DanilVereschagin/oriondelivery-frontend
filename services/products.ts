@@ -24,6 +24,7 @@ export const getById = async (id: string): Promise<Product> => {
 		include: {
 			ingredients: true,
 			variants: true,
+			category: true,
 		},
 	});
 
