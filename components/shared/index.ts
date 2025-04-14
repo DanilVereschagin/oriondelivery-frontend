@@ -13,5 +13,6 @@ export { ProductsGroupList } from './ProductsGroupList';
 export { SearchInput } from './SearchInput';
 export { ProductImage } from './ProductImage';
 export { Ingredient } from './Ingredient';
+export { CartDrawer } from './CartDrawer';
 export * from './modals';
 export * from './forms';
