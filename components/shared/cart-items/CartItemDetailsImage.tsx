@@ -9,10 +9,10 @@ interface Props {
 export const CartItemDetailsImage: React.FC<Props> = ({ src, className }) => {
 	return (
 		<Image
+			width={120}
+			height={120}
 			alt='cart product'
-			width={88}
-			height={88}
-			className={cn('', className)}
+			className={cn('w-[120px] h-[120px]', className)}
 			src={src}
 		/>
 	);

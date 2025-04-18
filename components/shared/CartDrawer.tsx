@@ -1,6 +1,6 @@
 'use client';
 
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import {
 	Sheet,
@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { Button } from '../ui';
 import { Wallet } from 'lucide-react';
 import { CartDrawerItem } from './CartDrawerItem';
+import { useCartStore } from '@/shared/store/cart';
 
 interface Props {
 	className?: string;
@@ -22,6 +23,14 @@ interface Props {
 export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({
 	children,
 }) => {
+	const { fetchCartItems, totalAmount, cartItems } = useCartStore(
+		(state) => state
+	);
+
+	useEffect(() => {
+		fetchCartItems();
+	}, []);
+
 	return (
 		<Sheet>
 			<SheetTrigger asChild>{children}</SheetTrigger>
@@ -30,23 +39,26 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({
 					<SheetTitle className='text-violet-800 font-bold'>
 						Корзина:{' '}
 						<span>
-							{/* {items.length} {items.length < 5 ? 'блюда' : 'блюд'} */}
-							{3} {3 < 5 ? 'блюда' : 'блюд'}
+							{cartItems.length} {cartItems.length < 5 ? 'блюда' : 'блюд'}
 						</span>
 					</SheetTitle>
 				</SheetHeader>
 
 				<div className='-mx-6 mt-5 overflow-auto flex-1'>
 					<div className='mb-2'>
-						<CartDrawerItem
-							id={1}
-							imageUrl='https://media.dodostatic.net/image/r:233x233/11ef9060dd723610942e8f368b03540a.avif'
-							name='Маргарита'
-							pizzaSize={35}
-							type={1}
-							quantity={1}
-							price={550}
-						/>
+						{cartItems.map((item) => (
+							<CartDrawerItem
+								key={item.id}
+								id={item.id}
+								imageUrl={item.imageUrl}
+								name={item.name}
+								price={item.price}
+								quantity={item.quantity}
+								ingredients={item.ingredients}
+								size={item.size}
+								type={item.pizzaType}
+							/>
+						))}
 					</div>
 				</div>
 
@@ -58,8 +70,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({
 								<div className='flex-1 border-b border-dashed border-b-violet-300 relative -top-1 mx-2' />
 							</span>
 
-							{/* <span>{totalAmount} ₽</span> */}
-							<span className='text-violet-800 font-bold'>500 ₽</span>
+							<span className='text-violet-800 font-bold'>{totalAmount} ₽</span>
 						</div>
 
 						<Link href={'/cart'}>

@@ -1,10 +1,10 @@
-import { Ingredient } from '@prisma/client';
+import { PlateCartItem } from '@/shared/lib/convert-to-cart';
 
 interface Props {
 	name: string;
 	pizzaSize?: number | null;
 	type?: number | null;
-	ingredients?: Ingredient[];
+	ingredients?: PlateCartItem['ingredients'];
 }
 
 export const CartItemInfo: React.FC<Props> = ({

@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/shared/lib/utils';
 import React from 'react';
 import { CartItemDetailsImage } from './cart-items/CartItemDetailsImage';
@@ -6,6 +8,7 @@ import { CartItemInfo } from './cart-items/CartItemInfo';
 import { CountButton } from './buttons';
 import { CartItemDetailsPrice } from './cart-items/CartItemDetailsPrice';
 import { Trash } from 'lucide-react';
+import { useCartStore } from '@/shared/store/cart';
 
 export const CartDrawerItem: React.FC<CartItemProps> = ({
 	id,
@@ -13,18 +16,33 @@ export const CartDrawerItem: React.FC<CartItemProps> = ({
 	price,
 	quantity,
 	ingredients,
-	pizzaSize,
+	size,
 	type,
 	className,
 	imageUrl,
 }) => {
+	const { updateCartItemsQuantity } = useCartStore((state) => state);
+
+	const onUpdateQuantity = (
+		id: number,
+		quantity: number,
+		type: 'plus' | 'minus'
+	) => {
+		if (type === 'plus') {
+			quantity += 1;
+		} else {
+			quantity -= 1;
+		}
+		updateCartItemsQuantity(id, quantity);
+	};
+
 	return (
-		<div className={cn('flex bg-violet-200 p-5 gap-6', className)}>
+		<div className={cn('flex bg-violet-200 p-5 gap-6 items-center', className)}>
 			<CartItemDetailsImage src={imageUrl} />
 			<div className='flex-1'>
 				<CartItemInfo
 					name={name}
-					pizzaSize={pizzaSize}
+					pizzaSize={size}
 					type={type}
 					ingredients={ingredients}
 				/>
@@ -33,7 +51,7 @@ export const CartDrawerItem: React.FC<CartItemProps> = ({
 
 				<div className='flex items-center justify-between'>
 					<CountButton
-						onClick={(value) => console.log(value)}
+						onClick={(type) => onUpdateQuantity(id, quantity, type)}
 						value={quantity}
 					/>
 					<div className='flex items-center gap-3'>

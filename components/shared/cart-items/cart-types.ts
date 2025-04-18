@@ -1,4 +1,4 @@
-import { Ingredient } from '@prisma/client';
+import { PlateCartItem } from '@/shared/lib/convert-to-cart';
 
 export interface CartItemProps {
 	id: number;
@@ -6,8 +6,8 @@ export interface CartItemProps {
 	name: string;
 	price: number;
 	quantity: number;
-	ingredients?: Ingredient[];
-	pizzaSize?: number | null;
+	ingredients?: PlateCartItem['ingredients'];
+	size?: number | null;
 	type?: number | null;
 	className?: string;
 }
