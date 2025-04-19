@@ -48,3 +48,43 @@ export async function PATCH(
 		);
 	}
 }
+
+export async function DELETE(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	try {
+		const { id } = params;
+		const token = req.cookies.get('token')?.value || '';
+
+		if (!token) {
+			return NextResponse.json({ message: 'Токен не найден' }, { status: 401 });
+		}
+
+		const cartItem = await prisma.cartItem.findFirst({
+			where: {
+				id: Number(id),
+			},
+		});
+
+		if (!cartItem) {
+			return NextResponse.json({ message: 'Товар не найдена' });
+		}
+
+		await prisma.cartItem.delete({
+			where: {
+				id: Number(id),
+			},
+		});
+
+		const updatedCart = await updateTotalAmount(token);
+
+		return NextResponse.json(updatedCart);
+	} catch (error) {
+		console.error('Cart item delete error', error);
+		return NextResponse.json(
+			{ message: 'Ошибка удаления из корзины' },
+			{ status: 500 }
+		);
+	}
+}

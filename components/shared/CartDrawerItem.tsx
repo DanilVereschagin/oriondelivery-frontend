@@ -21,7 +21,9 @@ export const CartDrawerItem: React.FC<CartItemProps> = ({
 	className,
 	imageUrl,
 }) => {
-	const { updateCartItemsQuantity } = useCartStore((state) => state);
+	const { updateCartItemsQuantity, removeCartItem } = useCartStore(
+		(state) => state
+	);
 
 	const onUpdateQuantity = (
 		id: number,
@@ -37,7 +39,12 @@ export const CartDrawerItem: React.FC<CartItemProps> = ({
 	};
 
 	return (
-		<div className={cn('flex bg-violet-200 p-5 gap-6 items-center', className)}>
+		<div
+			className={cn(
+				'flex bg-violet-200 p-5 gap-6 items-center mb-2',
+				className
+			)}
+		>
 			<CartItemDetailsImage src={imageUrl} />
 			<div className='flex-1'>
 				<CartItemInfo
@@ -57,6 +64,7 @@ export const CartDrawerItem: React.FC<CartItemProps> = ({
 					<div className='flex items-center gap-3'>
 						<CartItemDetailsPrice value={price} />
 						<Trash
+							onClick={() => removeCartItem(id)}
 							size={16}
 							className='cursor-pointer text-violet-400 hover:text-violet-600'
 						/>

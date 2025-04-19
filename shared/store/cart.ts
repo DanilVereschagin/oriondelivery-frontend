@@ -1,6 +1,7 @@
 import { Api } from '@/services/api';
 import { create } from 'zustand';
 import { convertToCart, PlateCartItem } from '../lib/convert-to-cart';
+import { AddCartItem } from '@/services/cart';
 
 export interface CartItemDTO {
 	id: number;
@@ -20,11 +21,11 @@ export interface State {
 	cartItems: PlateCartItem[];
 	fetchCartItems: () => Promise<void>;
 	updateCartItemsQuantity: (id: number, quantity: number) => Promise<void>;
-	addCartItem: (values: any) => Promise<void>;
+	addCartItem: (values: AddCartItem) => Promise<void>;
 	removeCartItem: (id: number) => Promise<void>;
 }
 
-export const useCartStore = create<State>((set, get) => ({
+export const useCartStore = create<State>((set) => ({
 	cartItems: [],
 	error: false,
 	loading: false,
@@ -56,13 +57,14 @@ export const useCartStore = create<State>((set, get) => ({
 		}
 	},
 
-	addCartItem: async (values: any) => {
+	addCartItem: async (values: AddCartItem) => {
 		set({ loading: true });
 		try {
 			const cart = await Api.cart.addCartItem(values);
-			set({ cartItems: cart.cartItems, totalAmount: cart.totalAmount });
+			set(convertToCart(cart));
 		} catch (error) {
 			console.error(error);
+			set({ error: true });
 		} finally {
 			set({ loading: false });
 		}
@@ -72,9 +74,10 @@ export const useCartStore = create<State>((set, get) => ({
 		set({ loading: true });
 		try {
 			const cart = await Api.cart.removeCartItem(id);
-			set({ cartItems: cart.cartItems, totalAmount: cart.totalAmount });
+			set(convertToCart(cart));
 		} catch (error) {
 			console.error(error);
+			set({ error: true });
 		} finally {
 			set({ loading: false });
 		}

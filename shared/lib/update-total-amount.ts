@@ -29,7 +29,7 @@ export const updateTotalAmount = async (token: string) => {
 			0
 		);
 
-		return await prisma.cart.update({
+		const newCart = await prisma.cart.update({
 			where: {
 				id: cart?.id,
 			},
@@ -52,6 +52,8 @@ export const updateTotalAmount = async (token: string) => {
 				},
 			},
 		});
+
+		return newCart;
 	} catch (error) {
 		console.error(error);
 	}

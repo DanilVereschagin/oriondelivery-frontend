@@ -17,11 +17,12 @@ import {
 } from '@/shared/constants/pizza';
 import { Ingredient } from '../Ingredient';
 import { useSet } from 'react-use';
+import { AddCartItem } from '@/services/cart';
 
 interface Props {
 	className?: string;
 	product: Product;
-	onClickAdd: () => void;
+	onClickAdd: (data: AddCartItem) => void;
 }
 
 export const ProductForm: React.FC<Props> = ({
@@ -56,6 +57,8 @@ export const ProductForm: React.FC<Props> = ({
 				selectedIngredients.has(ingredient.id)
 			)
 			.reduce((acc, curr) => acc + curr.price, 0);
+	} else {
+		productPrice = product.variants[0]?.price;
 	}
 
 	const totalPrice = productPrice + ingredientsPrice;
@@ -82,12 +85,18 @@ export const ProductForm: React.FC<Props> = ({
 	}, [type]);
 
 	const handleAddToCart = () => {
-		console.log({
-			size,
-			type,
+		let varId = product.variants[0]?.id;
+
+		if (isPizza) {
+			varId = product.variants?.find(
+				(variant) => variant.size === size && variant.pizzaType === type
+			)?.id;
+		}
+
+		onClickAdd({
+			productVariantId: varId,
 			ingredients: Array.from(selectedIngredients),
 		});
-		onClickAdd();
 	};
 
 	return (
