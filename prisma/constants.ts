@@ -12,9 +12,6 @@ export const categories = [
 		name: 'Закуски',
 	},
 	{
-		name: 'Салаты',
-	},
-	{
 		name: 'Супы',
 	},
 	{
@@ -318,12 +315,222 @@ export const products = [
 			'https://media.dodostatic.net/image/r:233x233/01959618077b7889a6837ec69a751b97.avif',
 		categoryId: 3,
 	},
+	{
+		name: 'Паста Креветка и Песто',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:292x292/019591e99f2e77e79cd59ac531ef5522.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Паста Карбонара',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11ee797018746ef899d162d16fa99625.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Паста Песто',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11ee797019062658a437457f8e1d5887.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Привет из Баварии',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:292x292/019591d977df7320b5d39f77965f05d8.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Овощной микс',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:292x292/01959842dc40728595599a0918e5593a.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Цезарь',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11ef8d3bc9e84fb7b5cfb7f47c6fb334.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Греческий',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11ef8d3ba81a876693a0c3a50226b1f3.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Креветки',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:292x292/019591d4976a77a481c909905a469347.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Куриные наггетсы',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11eef45eacc4d7eabc10e0a0e0c2c67a.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Картофель из печи',
+		imageUrl:
+			'https://media.dodostatic.net/image/r:233x233/11eed646b7ac9c38ba256320dd31c4d5.avif',
+		categoryId: 4,
+	},
+	{
+		name: 'Борщ с салом',
+		imageUrl: '/assets/Soup/Борщ.png',
+		categoryId: 5,
+	},
+	{
+		name: 'Солянка',
+		imageUrl: '/assets/Soup/Солянка.png',
+		categoryId: 5,
+	},
+	{
+		name: 'Уха',
+		imageUrl: '/assets/Soup/Уха.png',
+		categoryId: 5,
+	},
+	{
+		name: 'Окрошка',
+		imageUrl: '/assets/Soup/Окрошка.png',
+		categoryId: 5,
+	},
+	{
+		name: 'Лапша',
+		imageUrl: '/assets/Soup/Лапша.png',
+		categoryId: 5,
+	},
+	{
+		name: 'Сырный',
+		imageUrl: '/assets/Sauce/Сырный.png',
+		categoryId: 6,
+	},
+	{
+		name: 'Чесночный',
+		imageUrl: '/assets/Sauce/Чесночный.png',
+		categoryId: 6,
+	},
+	{
+		name: 'Барбекю',
+		imageUrl: '/assets/Sauce/Барбекю.png',
+		categoryId: 6,
+	},
+	{
+		name: 'Медово-горчичный',
+		imageUrl: '/assets/Sauce/Медово_горчичный.png',
+		categoryId: 6,
+	},
+	{
+		name: 'Чизкейк',
+		imageUrl: '/assets/Dessert/Чизкейк.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Карамельный чизкейк',
+		imageUrl: '/assets/Dessert/Карамельный_чизкейк.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Черничный маффин',
+		imageUrl: '/assets/Dessert/Черничный_маффин.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Тирамису',
+		imageUrl: '/assets/Dessert/Тирамису.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Бруслетики',
+		imageUrl: '/assets/Dessert/Бруслетики.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Фондан',
+		imageUrl: '/assets/Dessert/Фондан.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Макарон манго-маракуйя',
+		imageUrl: '/assets/Dessert/Макарон.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Лимонный сорбет',
+		imageUrl: '/assets/Dessert/Лимонный_сорбет.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Клубничный сорбет',
+		imageUrl: '/assets/Dessert/Клубничный_сорбет.png',
+		categoryId: 7,
+	},
+	{
+		name: 'Капучино',
+		imageUrl: '/assets/Drink/Капучино.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Латте',
+		imageUrl: '/assets/Drink/Латте.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Американо',
+		imageUrl: '/assets/Drink/Американо.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Какао',
+		imageUrl: '/assets/Drink/Какао.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Кола',
+		imageUrl: '/assets/Drink/Добрый_Кола.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Кола без сахара',
+		imageUrl: '/assets/Drink/Добрый_Кола_без_сахара.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Апельсин',
+		imageUrl: '/assets/Drink/Добрый_Апельсин.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Лимон-Лайм',
+		imageUrl: '/assets/Drink/Добрый_Лимон_Лайм.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый апельсин',
+		imageUrl: '/assets/Drink/Нектар_Добрый_апельсин.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый мультифрукт',
+		imageUrl: '/assets/Drink/Нектар_Добрый_мультифрукт.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый яблоко',
+		imageUrl: '/assets/Drink/Нектар_Добрый_яблоко.png',
+		categoryId: 8,
+	},
+	{
+		name: 'Вода негазированная',
+		imageUrl: '/assets/Drink/Вода_негазированная.png',
+		categoryId: 8,
+	},
 ];
 
 export const pizzas = [
 	{
 		name: 'Чилл Грилл',
-		imageUrl: '/assets/Чилл_Грилл.avif',
+		imageUrl: '/assets/Pizza/Чилл_Грилл.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 8 }, { id: 14 }, { id: 16 }, { id: 5 }],
@@ -331,7 +538,7 @@ export const pizzas = [
 	},
 	{
 		name: 'Баварская',
-		imageUrl: '/assets/Баварская.avif',
+		imageUrl: '/assets/Pizza/Баварская.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 21 }, { id: 14 }, { id: 15 }, { id: 16 }, { id: 5 }],
@@ -339,10 +546,50 @@ export const pizzas = [
 	},
 	{
 		name: 'Мясной микс с говядиной и колбасками',
-		imageUrl: '/assets/Мясной_микс.avif',
+		imageUrl: '/assets/Pizza/Мясной_микс.avif',
 		categoryId: 1,
 		ingredients: {
 			connect: [{ id: 2 }, { id: 21 }, { id: 11 }, { id: 1 }, { id: 5 }],
+		},
+	},
+	{
+		name: 'Креветка и Песто',
+		imageUrl: '/assets/Pizza/Креветка_и_Песто.png',
+		categoryId: 1,
+		ingredients: {
+			connect: [{ id: 4 }, { id: 15 }, { id: 9 }, { id: 5 }, { id: 18 }],
+		},
+	},
+	{
+		name: 'Сырная',
+		imageUrl: '/assets/Pizza/Сырная.png',
+		categoryId: 1,
+		ingredients: {
+			connect: [{ id: 5 }, { id: 6 }],
+		},
+	},
+	{
+		name: 'Пепперони',
+		imageUrl: '/assets/Pizza/Пепперони.png',
+		categoryId: 1,
+		ingredients: {
+			connect: [{ id: 11 }, { id: 5 }, { id: 15 }],
+		},
+	},
+	{
+		name: 'Черизо фреш',
+		imageUrl: '/assets/Pizza/Чоризо_фреш.png',
+		categoryId: 1,
+		ingredients: {
+			connect: [{ id: 12 }, { id: 19 }, { id: 5 }],
+		},
+	},
+	{
+		name: 'Ветчина и грибы',
+		imageUrl: '/assets/Pizza/Ветчина_и_грибы.png',
+		categoryId: 1,
+		ingredients: {
+			connect: [{ id: 10 }, { id: 9 }, { id: 5 }],
 		},
 	},
 ];
@@ -442,6 +689,186 @@ export const productsVariants = [
 		productId: 3,
 		pizzaType: 2,
 		price: 959,
+		size: 40,
+	},
+	{
+		productId: 4,
+		pizzaType: 1,
+		price: 579,
+		size: 30,
+	},
+	{
+		productId: 4,
+		pizzaType: 1,
+		price: 899,
+		size: 35,
+	},
+	{
+		productId: 4,
+		pizzaType: 1,
+		price: 1019,
+		size: 40,
+	},
+	{
+		productId: 4,
+		pizzaType: 2,
+		price: 579,
+		size: 30,
+	},
+	{
+		productId: 4,
+		pizzaType: 2,
+		price: 899,
+		size: 35,
+	},
+	{
+		productId: 4,
+		pizzaType: 2,
+		price: 1019,
+		size: 40,
+	},
+	{
+		productId: 5,
+		pizzaType: 1,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 5,
+		pizzaType: 1,
+		price: 569,
+		size: 35,
+	},
+	{
+		productId: 5,
+		pizzaType: 1,
+		price: 699,
+		size: 40,
+	},
+	{
+		productId: 5,
+		pizzaType: 2,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 5,
+		pizzaType: 2,
+		price: 569,
+		size: 35,
+	},
+	{
+		productId: 5,
+		pizzaType: 2,
+		price: 699,
+		size: 40,
+	},
+	{
+		productId: 6,
+		pizzaType: 1,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 6,
+		pizzaType: 1,
+		price: 539,
+		size: 35,
+	},
+	{
+		productId: 6,
+		pizzaType: 1,
+		price: 669,
+		size: 40,
+	},
+	{
+		productId: 6,
+		pizzaType: 2,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 6,
+		pizzaType: 2,
+		price: 539,
+		size: 35,
+	},
+	{
+		productId: 6,
+		pizzaType: 2,
+		price: 669,
+		size: 40,
+	},
+	{
+		productId: 7,
+		pizzaType: 1,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 7,
+		pizzaType: 1,
+		price: 559,
+		size: 35,
+	},
+	{
+		productId: 7,
+		pizzaType: 1,
+		price: 699,
+		size: 40,
+	},
+	{
+		productId: 7,
+		pizzaType: 2,
+		price: 339,
+		size: 30,
+	},
+	{
+		productId: 7,
+		pizzaType: 2,
+		price: 559,
+		size: 35,
+	},
+	{
+		productId: 7,
+		pizzaType: 2,
+		price: 699,
+		size: 40,
+	},
+	{
+		productId: 8,
+		pizzaType: 1,
+		price: 479,
+		size: 30,
+	},
+	{
+		productId: 8,
+		pizzaType: 1,
+		price: 699,
+		size: 35,
+	},
+	{
+		productId: 8,
+		pizzaType: 1,
+		price: 889,
+		size: 40,
+	},
+	{
+		productId: 8,
+		pizzaType: 2,
+		price: 479,
+		size: 30,
+	},
+	{
+		productId: 8,
+		pizzaType: 2,
+		price: 699,
+		size: 35,
+	},
+	{
+		productId: 8,
+		pizzaType: 2,
+		price: 889,
 		size: 40,
 	},
 ];
