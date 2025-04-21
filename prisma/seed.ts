@@ -55,7 +55,7 @@ async function up() {
 		data: [
 			{
 				userId: 1,
-				totalAmount: 0,
+				totalAmount: 2420,
 				token: '12345678',
 			},
 			{

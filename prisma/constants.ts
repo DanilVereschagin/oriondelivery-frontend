@@ -238,24 +238,6 @@ export const products = [
 		categoryId: 2,
 	},
 	{
-		name: 'Американо',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/11ee7d61b02b810b8767d5ff70d15897.avif',
-		categoryId: 2,
-	},
-	{
-		name: 'Капучино',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/11ee7d61ae1813b4ab42d8927d061035.avif',
-		categoryId: 2,
-	},
-	{
-		name: 'Латте',
-		imageUrl:
-			'https://media.dodostatic.net/image/r:233x233/11ee7d61b0c26a3f85d97a78feee00ad.avif',
-		categoryId: 2,
-	},
-	{
 		name: 'Чикен бокс',
 		imageUrl:
 			'https://media.dodostatic.net/image/r:233x233/019570d1cf4972f59b57ab333237e745.avif',
@@ -870,5 +852,241 @@ export const productsVariants = [
 		pizzaType: 2,
 		price: 889,
 		size: 40,
+	},
+	{
+		productId: 9,
+		price: 175,
+	},
+	{
+		productId: 10,
+		price: 239,
+	},
+	{
+		productId: 11,
+		price: 239,
+	},
+	{
+		productId: 12,
+		price: 239,
+	},
+	{
+		productId: 13,
+		price: 239,
+	},
+	{
+		productId: 14,
+		price: 199,
+	},
+	{
+		productId: 15,
+		price: 199,
+	},
+	{
+		productId: 16,
+		price: 199,
+	},
+	{
+		productId: 17,
+		price: 170,
+	},
+	{
+		productId: 18,
+		price: 270,
+	},
+	{
+		productId: 19,
+		price: 449,
+	},
+	{
+		productId: 20,
+		price: 869,
+	},
+	{
+		productId: 21,
+		price: 1129,
+	},
+	{
+		productId: 22,
+		price: 1239,
+	},
+	{
+		productId: 23,
+		price: 1999,
+	},
+	{
+		productId: 24,
+		price: 739,
+	},
+	{
+		productId: 25,
+		price: 195,
+	},
+	{
+		productId: 26,
+		price: 239,
+	},
+	{
+		productId: 27,
+		price: 75,
+	},
+	{
+		productId: 28,
+		price: 409,
+	},
+	{
+		productId: 29,
+		price: 369,
+	},
+	{
+		productId: 30,
+		price: 359,
+	},
+	{
+		productId: 31,
+		price: 319,
+	},
+	{
+		productId: 32,
+		price: 280,
+	},
+	{
+		productId: 33,
+		price: 300,
+	},
+	{
+		productId: 34,
+		price: 249,
+	},
+	{
+		productId: 35,
+		price: 209,
+	},
+	{
+		productId: 36,
+		price: 159,
+	},
+	{
+		productId: 37,
+		price: 129,
+	},
+	{
+		productId: 38,
+		price: 239,
+	},
+	{
+		productId: 39,
+		price: 319,
+	},
+	{
+		productId: 40,
+		price: 279,
+	},
+	{
+		productId: 41,
+		price: 239,
+	},
+	{
+		productId: 42,
+		price: 199,
+	},
+	{
+		productId: 43,
+		price: 49,
+	},
+	{
+		productId: 44,
+		price: 49,
+	},
+	{
+		productId: 45,
+		price: 49,
+	},
+	{
+		productId: 46,
+		price: 49,
+	},
+	{
+		productId: 47,
+		price: 189,
+	},
+	{
+		productId: 48,
+		price: 189,
+	},
+	{
+		productId: 49,
+		price: 119,
+	},
+	{
+		productId: 50,
+		price: 169,
+	},
+	{
+		productId: 51,
+		price: 265,
+	},
+	{
+		productId: 52,
+		price: 389,
+	},
+	{
+		productId: 53,
+		price: 129,
+	},
+	{
+		productId: 54,
+		price: 145,
+	},
+	{
+		productId: 55,
+		price: 145,
+	},
+	{
+		productId: 56,
+		price: 179,
+	},
+	{
+		productId: 57,
+		price: 179,
+	},
+	{
+		productId: 58,
+		price: 129,
+	},
+	{
+		productId: 59,
+		price: 139,
+	},
+	{
+		productId: 60,
+		price: 135,
+	},
+	{
+		productId: 61,
+		price: 135,
+	},
+	{
+		productId: 62,
+		price: 135,
+	},
+	{
+		productId: 63,
+		price: 135,
+	},
+	{
+		productId: 64,
+		price: 149,
+	},
+	{
+		productId: 65,
+		price: 149,
+	},
+	{
+		productId: 66,
+		price: 149,
+	},
+	{
+		productId: 67,
+		price: 100,
 	},
 ];
