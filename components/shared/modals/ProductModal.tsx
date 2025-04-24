@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { ProductForm } from '../forms';
 import { useCartStore } from '@/shared/store/cart';
 import { AddCartItem } from '@/services/cart';
+import toast from 'react-hot-toast';
 
 interface Props {
 	className?: string;
@@ -17,18 +18,30 @@ interface Props {
 
 export const ProductModal: React.FC<Props> = ({ className, product }) => {
 	const router = useRouter();
-	const { addCartItem } = useCartStore((state) => state);
+	const { addCartItem, loading } = useCartStore((state) => state);
 
-	const addToCart = (data: AddCartItem) => {
+	const addToCart = async (data: AddCartItem) => {
 		if (Boolean(product.category.name === 'Пицца')) {
-			addCartItem({
-				productVariantId: data.productVariantId,
-				ingredients: data.ingredients,
-			});
+			try {
+				await addCartItem({
+					productVariantId: data.productVariantId,
+					ingredients: data.ingredients,
+				});
+				toast.success('Пицца добавлена в корзину');
+			} catch (error) {
+				toast.error('Не удалось добавить пиццу в корзину');
+				console.error(error);
+			}
 		} else {
-			addCartItem({
-				productVariantId: data.productVariantId,
-			});
+			try {
+				await addCartItem({
+					productVariantId: data.productVariantId,
+				});
+				toast.success('Товар добавлен в корзину');
+			} catch (error) {
+				toast.error('Не удалось добавить товар в корзину');
+				console.error(error);
+			}
 		}
 		router.back();
 	};
@@ -41,7 +54,12 @@ export const ProductModal: React.FC<Props> = ({ className, product }) => {
 					'p-0 2-[1060px] max-w-[1060px] min-h-[500px] overflow-hidden'
 				)}
 			>
-				<ProductForm className='p-6' product={product} onClickAdd={addToCart} />
+				<ProductForm
+					className='p-6'
+					loading={loading}
+					product={product}
+					onClickAdd={addToCart}
+				/>
 			</DialogContent>
 		</Dialog>
 	);

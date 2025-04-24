@@ -23,12 +23,14 @@ interface Props {
 	className?: string;
 	product: Product;
 	onClickAdd: (data: AddCartItem) => void;
+	loading?: boolean;
 }
 
 export const ProductForm: React.FC<Props> = ({
 	className,
 	product,
 	onClickAdd,
+	loading,
 }) => {
 	const isPizza = Boolean(product.category.name === 'Пицца');
 	const [size, setSize] = useState<PizzaSize>(product.variants[0]?.size);
@@ -149,6 +151,7 @@ export const ProductForm: React.FC<Props> = ({
 				</div>
 
 				<Button
+					loading={loading}
 					onClick={handleAddToCart}
 					className='h-[55px] px-10 mt-10 text-base w-full rounded-lg'
 				>
