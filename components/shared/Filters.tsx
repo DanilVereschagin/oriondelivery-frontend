@@ -36,7 +36,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
 	useEffect(() => {
 		setPriceFrom(Number(searchParams.get('priceFrom') || 0));
-		setPriceTo(Number(searchParams.get('priceTo') || 0));
+		setPriceTo(Number(searchParams.get('priceTo') || 10000));
 
 		const items = searchParams.get('ingredients')?.split(',');
 
@@ -61,7 +61,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				arrayFormat: 'comma',
 			});
 
-			router.push(`?${queryString}`, { scroll: false });
+			router.replace(`?${queryString}`, { scroll: false });
 		},
 		200,
 		[priceFrom, priceTo, selectedIngredients, sizes, pizzaTypes]
@@ -72,8 +72,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
 			<Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
 
 			<div className='flex flex-col gap-4'>
-				<FilterCheckbox text='Можно собрать' value='1' />
-				<FilterCheckbox text='Новинки' value='2' />
+				<FilterCheckbox text='Пиццы' value='1' />
+				<FilterCheckbox text='Другое' value='2' />
 			</div>
 
 			<div className='mt-5 border-y border-y-violet-200 py-6 pb-7'>

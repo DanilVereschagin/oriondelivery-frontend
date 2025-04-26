@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog } from '@/components/ui';
-import { DialogContent } from '@/components/ui/dialog';
+import { DialogContent, DialogTitle } from '@/components/ui/dialog';
 import React from 'react';
 import { Product } from '@prisma/client';
 import { cn } from '@/shared/lib/utils';
@@ -47,7 +47,13 @@ export const ProductModal: React.FC<Props> = ({ className, product }) => {
 	};
 
 	return (
-		<Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
+		<Dialog
+			open={Boolean(product)}
+			onOpenChange={() => {
+				router.back();
+			}}
+		>
+			<DialogTitle hidden>Добавить товар в корзину</DialogTitle>
 			<DialogContent
 				className={cn(
 					className,

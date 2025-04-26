@@ -3,7 +3,7 @@ import React from 'react';
 import { Container } from './Container';
 import Image from 'next/image';
 import { Button } from '../ui';
-import { ShoppingCart, UserRound, Wallet } from 'lucide-react';
+import { UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { SearchInput } from './SearchInput';
 import { ModeToggle } from '../ui/toggle';
@@ -16,7 +16,10 @@ interface Props {
 export const Header: React.FC<Props> = ({ className }) => {
 	return (
 		<header
-			className={cn('sticky top-0 border border-b bg-background', className)}
+			className={cn(
+				'sticky top-0 border border-b bg-background z-20',
+				className
+			)}
 		>
 			<Container className='flex items-center justify-between py-8'>
 				<Link href='/'>

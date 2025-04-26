@@ -4,7 +4,6 @@ import { Title } from './Title';
 import { Button } from '../ui';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
-import { cn } from '@/shared/lib/utils';
 
 interface Props {
 	id: number;
