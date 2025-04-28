@@ -6,6 +6,8 @@ import { ProductCard } from './ProductCard';
 import { useIntersection } from 'react-use';
 import { useCategoryStore } from '@/shared/store/category';
 import { Product } from '@prisma/client';
+import { convertIngredientsToString } from '@/shared/lib/convert-ingredients-to-string';
+import classes from '../style/Slide.module.scss';
 
 interface Props {
 	title: string;
@@ -39,13 +41,15 @@ export const ProductsGroupList: React.FC<Props> = ({
 			<Title text={title} size='lg' className='font-extrabold mb-5' />
 
 			<div className={cn('grid grid-cols-3 gap-[50px]', listClassName)}>
-				{items.map((product) => (
+				{items.map((product, index) => (
 					<ProductCard
+						className={classes.slide_in_right_normal}
 						key={product.id}
 						id={product.id}
 						name={product.name}
 						price={product?.variants[0]?.price || 0}
 						imageUrl={product.imageUrl}
+						ingredients={convertIngredientsToString(product?.ingredients)}
 					/>
 				))}
 			</div>

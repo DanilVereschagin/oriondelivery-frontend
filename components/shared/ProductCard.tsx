@@ -11,6 +11,7 @@ interface Props {
 	price: number;
 	imageUrl: string;
 	className?: string;
+	ingredients?: string;
 }
 
 export const ProductCard: React.FC<Props> = ({
@@ -19,9 +20,10 @@ export const ProductCard: React.FC<Props> = ({
 	price,
 	imageUrl,
 	className,
+	ingredients,
 }) => {
 	return (
-		<div className={className}>
+		<div className={className} style={{ animationDelay: `${id * 0.1}s` }}>
 			<Link href={'/product/' + id}>
 				<div className='flex justify-center p-6 bg-violet-100 rounded-lg h-[260px]'>
 					<Image width={215} height={215} src={imageUrl} alt={name} />
@@ -29,9 +31,7 @@ export const ProductCard: React.FC<Props> = ({
 
 				<Title text={name} size='sm' className='mb-1 mt-3 font-bold' />
 
-				<p className='text-sm text-violet-400'>
-					Цыплёнок, моцарелла, сырный соус, томаты, чеснок
-				</p>
+				<p className='text-sm text-violet-400'>{ingredients}</p>
 
 				<div className='flex items-center justify-between mt-4'>
 					<span className='text-[20px]'>

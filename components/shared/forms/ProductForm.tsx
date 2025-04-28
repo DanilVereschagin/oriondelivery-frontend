@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Title } from '../Title';
 import { Ingredient as IngredientType, Product } from '@prisma/client';
 import { cn } from '@/shared/lib/utils';
@@ -18,6 +18,9 @@ import {
 import { Ingredient } from '../Ingredient';
 import { useSet } from 'react-use';
 import { AddCartItem } from '@/services/cart';
+import { getAll } from '@/services/ingredients';
+import { convertIngredientsToString } from '@/shared/lib/convert-ingredients-to-string';
+import classes from '@/components/style/Slide.module.scss';
 
 interface Props {
 	className?: string;
@@ -35,6 +38,7 @@ export const ProductForm: React.FC<Props> = ({
 	const isPizza = Boolean(product.category.name === 'Пицца');
 	const [size, setSize] = useState<PizzaSize>(product.variants[0]?.size);
 	const [type, setType] = useState<PizzaType>(product.variants[0]?.pizzaType);
+	const [ingredients, setIngredients] = useState<IngredientType[]>([]);
 
 	let info = '';
 	const [selectedIngredients, { toggle: toggleSelectedIngredients }] = useSet(
@@ -42,7 +46,8 @@ export const ProductForm: React.FC<Props> = ({
 	);
 
 	if (isPizza) {
-		info = `${size} см, ${pizzaType[type]} тесто, 630 грамм`;
+		info = `${size} см, ${pizzaType[type]} тесто, 630 грамм, `;
+		info += convertIngredientsToString(product.ingredients);
 	} else {
 		info = `630 грамм`;
 	}
@@ -76,6 +81,27 @@ export const ProductForm: React.FC<Props> = ({
 		),
 	}));
 
+	const fetchIngredients = async () => {
+		const ingredients = await getAll();
+
+		if (!isPizza) {
+			return;
+		}
+
+		setIngredients(
+			ingredients.filter((ingredient) => {
+				return product.ingredients.every(
+					(productIngredient: IngredientType) =>
+						productIngredient.id !== ingredient.id
+				);
+			})
+		);
+	};
+
+	useEffect(() => {
+		fetchIngredients();
+	}, [product]);
+
 	useEffect(() => {
 		const currentSize = availablePizzas?.find(
 			(variant) => Number(variant.size) === Number(size)
@@ -104,13 +130,19 @@ export const ProductForm: React.FC<Props> = ({
 	return (
 		<div className={cn(className, 'flex flex-1')}>
 			<ProductImage
+				className={classes.slide_in_left_normal}
 				src={product.imageUrl}
 				alt={product.name}
 				size={size}
 				isPizza={isPizza}
 			/>
 
-			<div className='w-[490px] p-7 rounded-lg bg-violet-100'>
+			<div
+				className={cn(
+					classes.slide_in_right_normal,
+					'w-[490px] p-7 rounded-lg bg-violet-100'
+				)}
+			>
 				<Title text={product.name} size='md' className='font-bold text-black' />
 
 				<p className='text-violet-400'>{info}</p>
@@ -137,7 +169,7 @@ export const ProductForm: React.FC<Props> = ({
 
 				<div className='p-5 h-[420px] overflow-auto scrollbar'>
 					<div className='grid grid-cols-3 gap-3'>
-						{product.ingredients?.map((ingredient: IngredientType) => (
+						{ingredients.map((ingredient: IngredientType) => (
 							<Ingredient
 								key={ingredient.id}
 								name={ingredient.name}

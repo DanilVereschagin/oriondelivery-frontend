@@ -17,6 +17,10 @@ const nextConfig = {
 			},
 		],
 	},
+	sassOptions: {
+		implementation: 'sass',
+		silenceDeprecations: ['legacy-js-api'],
+	},
 };
 
 export default nextConfig;

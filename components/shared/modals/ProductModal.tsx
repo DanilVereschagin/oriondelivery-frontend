@@ -57,11 +57,11 @@ export const ProductModal: React.FC<Props> = ({ className, product }) => {
 			<DialogContent
 				className={cn(
 					className,
-					'p-0 2-[1060px] max-w-[1060px] min-h-[500px] overflow-hidden'
+					'p-0 w-[1060px] max-w-[calc(100vw-40px)] min-h-[500px] overflow-hidden'
 				)}
 			>
 				<ProductForm
-					className='p-6'
+					className={'p-6'}
 					loading={loading}
 					product={product}
 					onClickAdd={addToCart}
