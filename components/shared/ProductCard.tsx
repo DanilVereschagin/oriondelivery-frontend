@@ -25,13 +25,13 @@ export const ProductCard: React.FC<Props> = ({
 	return (
 		<div className={className} style={{ animationDelay: `${id * 0.1}s` }}>
 			<Link href={'/product/' + id}>
-				<div className='flex justify-center p-6 bg-violet-100 rounded-lg h-[260px]'>
+				<div className='flex justify-center p-6 bg-violet-300 rounded-lg h-[260px]'>
 					<Image width={215} height={215} src={imageUrl} alt={name} />
 				</div>
 
 				<Title text={name} size='sm' className='mb-1 mt-3 font-bold' />
 
-				<p className='text-sm text-violet-400'>{ingredients}</p>
+				<p className='text-sm text-violet-600'>{ingredients}</p>
 
 				<div className='flex items-center justify-between mt-4'>
 					<span className='text-[20px]'>

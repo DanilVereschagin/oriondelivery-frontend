@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Title } from './Title';
-import { FilterCheckbox } from './FilterCheckbox';
 import { Input } from '../ui';
 import { RangeSlider } from './RangeSlider';
 import { CheckboxFiltersGroup } from './CheckboxFiltersGroup';

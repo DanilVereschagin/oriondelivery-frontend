@@ -16,7 +16,10 @@ export const CartButton: React.FC<Props> = ({ className }) => {
 
 	return (
 		<CartDrawer>
-			<Button loading={loading} className={cn('group relative', className)}>
+			<Button
+				loading={loading}
+				className={cn('group relative min-w-[128px]', className)}
+			>
 				<b>{totalAmount}₽</b>
 				<span className='h-full w-[1px] bg-white/30 mx-3' />
 				<div className='flex items-center gap-1 transition duration-300 group-hover:opacity-0'>

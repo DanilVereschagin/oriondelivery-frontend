@@ -43,7 +43,7 @@ export const ProductsGroupList: React.FC<Props> = ({
 			<div className={cn('grid grid-cols-3 gap-[50px]', listClassName)}>
 				{items.map((product, index) => (
 					<ProductCard
-						className={classes.slide_in_right_normal}
+						className={classes.slide_in_left_normal}
 						key={product.id}
 						id={product.id}
 						name={product.name}

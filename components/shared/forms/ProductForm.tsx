@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Title } from '../Title';
 import { Ingredient as IngredientType, Product } from '@prisma/client';
 import { cn } from '@/shared/lib/utils';
@@ -59,7 +59,7 @@ export const ProductForm: React.FC<Props> = ({
 		productPrice = product.variants?.find(
 			(variant) => variant.size === size && variant.pizzaType === type
 		)?.price;
-		ingredientsPrice = product.ingredients
+		ingredientsPrice = ingredients
 			?.filter((ingredient: IngredientType) =>
 				selectedIngredients.has(ingredient.id)
 			)

@@ -20,7 +20,7 @@ export const ProductImage: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				'relative flex items-center justify-center flex-1 w-full',
+				'relative flex items-center justify-center flex-1',
 				className
 			)}
 		>

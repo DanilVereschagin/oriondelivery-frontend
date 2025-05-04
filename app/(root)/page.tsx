@@ -23,9 +23,6 @@ export default async function Home({
 			<TopBar categories={categories.filter((c) => c.products?.length > 0)} />
 			<Container className='pb-14 mt-10'>
 				<div className='flex gap-[70px]'>
-					<div className='w-[250px]'>
-						<Filters className='sticky left-0 top-52' />
-					</div>
 					<div className='flex-1'>
 						<div className='flex flex-col gap-16'>
 							{(await categories).map(
@@ -40,6 +37,9 @@ export default async function Home({
 									)
 							)}
 						</div>
+					</div>
+					<div className='w-[250px]'>
+						<Filters />
 					</div>
 				</div>
 			</Container>
