@@ -28,6 +28,7 @@ import { getAll } from '@/services/ingredients';
 import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Ingredient } from '../Ingredient';
+import classes from '@/components/style/Roll.module.scss';
 
 interface Props {
 	className?: string;
@@ -187,6 +188,7 @@ export const ProductPageForm: FC<Props> = ({ className, product }) => {
 
 					<div className='w-[700px] h-[500px] flex items-center justify-center'>
 						<ProductImage
+							imageClassName={classes.roll_in_left_normal}
 							src={product.imageUrl}
 							alt={product.name}
 							size={size}
@@ -194,20 +196,22 @@ export const ProductPageForm: FC<Props> = ({ className, product }) => {
 						/>
 					</div>
 
-					<div className='p-5 mt-4 h-[420px] overflow-auto scrollbar'>
-						<div className='grid grid-cols-4 gap-3'>
-							{ingredients.map((ingredient: IngredientType) => (
-								<Ingredient
-									key={ingredient.id}
-									name={ingredient.name}
-									imageUrl={ingredient.imageUrl}
-									price={ingredient.price}
-									active={selectedIngredients.has(ingredient.id)}
-									onClick={() => toggleSelectedIngredients(ingredient.id)}
-								/>
-							))}
+					{isPizza && (
+						<div className='p-5 mt-4 h-[420px] overflow-auto scrollbar'>
+							<div className='grid grid-cols-4 gap-3'>
+								{ingredients.map((ingredient: IngredientType) => (
+									<Ingredient
+										key={ingredient.id}
+										name={ingredient.name}
+										imageUrl={ingredient.imageUrl}
+										price={ingredient.price}
+										active={selectedIngredients.has(ingredient.id)}
+										onClick={() => toggleSelectedIngredients(ingredient.id)}
+									/>
+								))}
+							</div>
 						</div>
-					</div>
+					)}
 
 					<Button
 						loading={loading}

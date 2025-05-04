@@ -4,6 +4,7 @@ import React from 'react';
 
 interface Props {
 	className?: string;
+	imageClassName?: string;
 	src: string;
 	alt: string;
 	size?: 30 | 35 | 40;
@@ -12,6 +13,7 @@ interface Props {
 
 export const ProductImage: React.FC<Props> = ({
 	className,
+	imageClassName,
 	src: imageUrl,
 	alt: name,
 	size = '40',
@@ -29,7 +31,10 @@ export const ProductImage: React.FC<Props> = ({
 				alt={name}
 				width={size === 30 ? 300 : size === 35 ? 400 : 500}
 				height={size === 30 ? 300 : size === 35 ? 400 : 500}
-				className='relative left-2 top-2 transition-all z-10 duration-300'
+				className={cn(
+					'relative left-2 top-2 transition-all z-10 duration-300',
+					imageClassName
+				)}
 			/>
 
 			{isPizza ? (
