@@ -16,10 +16,19 @@ export const Categories: React.FC<Props> = ({ categories, className }) => {
 
 	const handleCategoryClick = (categoryId: number, categoryName: string) => {
 		const targetElement = document.getElementById(categoryName);
+
 		if (targetElement) {
+			const elementRect = targetElement.getBoundingClientRect();
+			const offsetPosition = elementRect.top + window.pageYOffset - 250;
+
 			targetElement.scrollIntoView({
 				behavior: 'smooth',
-				block: 'start',
+				block: 'nearest',
+			});
+
+			scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth',
 			});
 		}
 

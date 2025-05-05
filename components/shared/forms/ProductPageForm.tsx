@@ -188,7 +188,7 @@ export const ProductPageForm: FC<Props> = ({ className, product }) => {
 
 					<div className='w-[700px] h-[500px] flex items-center justify-center'>
 						<ProductImage
-							imageClassName={classes.roll_in_left_normal}
+							imageClassName={ isPizza ? classes.roll_in_left_normal : ''}
 							src={product.imageUrl}
 							alt={product.name}
 							size={size}

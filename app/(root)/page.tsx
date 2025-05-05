@@ -5,6 +5,7 @@ import {
 	Filters,
 	ProductsGroupList,
 } from '@/components/shared';
+import { SocialNetworks } from '@/components/shared/SocialNetworks';
 import { filterProducts, SearchParams } from '@/shared/lib/filter-products';
 import { Category } from '@prisma/client';
 
@@ -29,6 +30,7 @@ export default async function Home({
 								(category) =>
 									category.products?.length > 0 && (
 										<ProductsGroupList
+											className='mb-2'
 											key={category.id}
 											title={category.name}
 											categoryId={category.id}
@@ -40,6 +42,7 @@ export default async function Home({
 					</div>
 					<div className='w-[250px]'>
 						<Filters />
+						<SocialNetworks />
 					</div>
 				</div>
 			</Container>
