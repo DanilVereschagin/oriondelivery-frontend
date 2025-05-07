@@ -7,3 +7,7 @@ export { Popover } from './popover';
 export { Select } from './select';
 export { Skeleton } from './skeleton';
 export { Slider } from './slider';
+export { Carousel } from './carousel';
+export { DropdownMenu } from './dropdown-menu';
+export { Sheet } from './sheet';
+export { Textarea } from './textarea';

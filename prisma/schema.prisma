@@ -19,6 +19,12 @@ enum UserRole {
     ADMIN
 }
 
+enum DeliveryType {
+    DEFAULT
+    COMET
+    LIGHT
+}
+
 model User {
     id Int @id @default(autoincrement())
 
@@ -188,6 +194,8 @@ model Order {
     email    String
     phone    String
     comment  String?
+
+    deliveryType DeliveryType @default(DEFAULT)
 
     createdAt DateTime @default(now())
     updateAt  DateTime @updatedAt
