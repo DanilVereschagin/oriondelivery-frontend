@@ -1,0 +1,37 @@
+import React from 'react';
+import { Input } from './input';
+
+interface Props extends React.ComponentProps<'input'> {
+	name: string;
+	label?: string;
+	required?: boolean;
+	className?: string;
+}
+
+export const FormInput: React.FC<Props> = ({
+	name,
+	label,
+	required,
+	className,
+	...props
+}) => {
+	return (
+		<div className={className}>
+			{label && (
+				<p className='mb-2 font-medium'>
+					{label} {required && <span className='text-red-600'>*</span>}
+				</p>
+			)}
+			<Input
+				className='text-base'
+				name={name}
+				id={name}
+				required={required}
+				{...props}
+			/>
+			<p className='text-red-600 text-sm mt-2'>
+				Поле обязательно для заполнения
+			</p>
+		</div>
+	);
+};

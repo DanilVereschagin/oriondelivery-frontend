@@ -76,6 +76,21 @@ async function up() {
 			},
 		},
 	});
+
+	await prisma.promocode.createMany({
+		data: [
+			{
+				quantity: 10,
+				code: 'TEST',
+				sale: 100,
+			},
+			{
+				quantity: 1,
+				code: '123',
+				sale: 200,
+			},
+		],
+	});
 }
 
 async function down() {

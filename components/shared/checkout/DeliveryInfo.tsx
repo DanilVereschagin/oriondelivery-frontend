@@ -6,6 +6,7 @@ import { cn } from '@/shared/lib/utils';
 import { deliveryTypes } from '@/shared/constants/delivery';
 import { Input, Textarea } from '@/components/ui';
 import { useDeliveryStore } from '@/shared/store/delivery';
+import { FormInput } from '@/components/ui/form-input';
 
 interface Props {
 	className?: string;
@@ -58,7 +59,11 @@ export const DeliveryInfo: React.FC<React.PropsWithChildren<Props>> = ({
 					))}
 				</div>
 
-				<Input name='fullName' className='text-base mt-4' placeholder='ФИО' />
+				<FormInput
+					name='fullName'
+					className='text-base mt-4'
+					placeholder='ФИО'
+				/>
 
 				<div className='mt-4 grid grid-cols-2 gap-4'>
 					<Input
