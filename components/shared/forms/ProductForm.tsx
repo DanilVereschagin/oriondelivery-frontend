@@ -128,7 +128,7 @@ export const ProductForm: React.FC<Props> = ({
 	};
 
 	return (
-		<div className={cn(className, 'flex flex-1')}>
+		<div className={cn(className, 'flex flex-1 h-[100%]')}>
 			<ProductImage
 				className={classes.slide_in_left_normal}
 				src={product.imageUrl}

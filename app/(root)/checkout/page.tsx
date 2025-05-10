@@ -1,4 +1,6 @@
-import { FormProvider, useForm } from 'react-hook-form';
+'use client';
+
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Container, Title } from '@/components/shared';
 import { AmountInfo, DeliveryInfo } from '@/components/shared/checkout';
 import { CartInfo } from '@/components/shared/checkout';
@@ -26,6 +28,12 @@ const Checkout: React.FC<Props> = ({ className }) => {
 		},
 	});
 
+	const onSubmit: SubmitHandler<CheckoutFormType> = (
+		data: CheckoutFormType
+	) => {
+		console.log(data);
+	};
+
 	return (
 		<Container className={cn(className, 'mt-4')}>
 			<Title size='lg' className='font-extrabold' text='Оформление заказа' />
@@ -37,7 +45,10 @@ const Checkout: React.FC<Props> = ({ className }) => {
 						<CartInfo />
 					</div>
 					<div className='w-[47%]'>
-						<AmountInfo className='p-6 sticky top-[13.5rem]' />
+						<AmountInfo
+							onPay={form.handleSubmit(onSubmit)}
+							className='p-6 sticky top-[13.5rem]'
+						/>
 					</div>
 				</div>
 			</FormProvider>

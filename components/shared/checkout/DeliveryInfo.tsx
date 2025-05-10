@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Title } from '../Title';
 import { cn } from '@/shared/lib/utils';
 import { deliveryTypes } from '@/shared/constants/delivery';
-import { Input, Textarea } from '@/components/ui';
 import { useDeliveryStore } from '@/shared/store/delivery';
-import { FormInput } from '@/components/ui/form-input';
+import { FormInput, FormTextarea } from '@/components/ui/form';
+import { FormAddressInput } from '@/components/ui/form/form-address-input';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface Props {
 	className?: string;
@@ -15,10 +16,9 @@ interface Props {
 export const DeliveryInfo: React.FC<React.PropsWithChildren<Props>> = ({
 	className,
 }) => {
-	const { setPrice } = useDeliveryStore((state) => state);
-	const [activeDeliveryType, setActiveDeliveryType] = useState(
-		deliveryTypes[0].value
-	);
+	const { control } = useFormContext();
+	const { setPrice, type, setType } = useDeliveryStore((state) => state);
+	const [activeDeliveryType, setActiveDeliveryType] = useState(type);
 
 	useEffect(() => {
 		setPrice(
@@ -28,6 +28,7 @@ export const DeliveryInfo: React.FC<React.PropsWithChildren<Props>> = ({
 	}, [activeDeliveryType, setPrice]);
 
 	const handleDeliveryTypeClick = (deliveryType: string) => {
+		setType(deliveryType);
 		setActiveDeliveryType(deliveryType);
 	};
 
@@ -66,24 +67,33 @@ export const DeliveryInfo: React.FC<React.PropsWithChildren<Props>> = ({
 				/>
 
 				<div className='mt-4 grid grid-cols-2 gap-4'>
-					<Input
+					<FormInput
 						name='email'
 						className='text-base'
 						placeholder='Электронная почта'
 					/>
-					<Input
+					<FormInput
 						name='phone'
 						className='text-base'
 						placeholder='8 (000) 000-00-00 или +7 (000) 000-00-00'
 					/>
 				</div>
 				<div className='mt-4 grid grid-cols-1 gap-4'>
-					<Input
+					<Controller
 						name='address'
-						className='text-base'
-						placeholder='Адрес доставки'
+						control={control}
+						render={({ field, fieldState }) => (
+							<>
+								<FormAddressInput onChange={field.onChange} />
+								{fieldState.error?.message && (
+									<p className='text-red-600 text-sm mt-2'>
+										Поле обязательно для заполнения
+									</p>
+								)}
+							</>
+						)}
 					/>
-					<Textarea
+					<FormTextarea
 						rows={5}
 						name='comment'
 						className='text-base resize-none'

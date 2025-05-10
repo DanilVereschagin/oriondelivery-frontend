@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input } from './input';
+import { Input } from '../input';
+import { useFormContext } from 'react-hook-form';
 
 interface Props extends React.ComponentProps<'input'> {
 	name: string;
@@ -15,6 +16,13 @@ export const FormInput: React.FC<Props> = ({
 	className,
 	...props
 }) => {
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext();
+
+	const error = errors[name]?.message as string;
+
 	return (
 		<div className={className}>
 			{label && (
@@ -24,14 +32,17 @@ export const FormInput: React.FC<Props> = ({
 			)}
 			<Input
 				className='text-base'
-				name={name}
 				id={name}
 				required={required}
+				{...register(name)}
 				{...props}
 			/>
-			<p className='text-red-600 text-sm mt-2'>
-				Поле обязательно для заполнения
-			</p>
+
+			{error && (
+				<p className='text-red-600 text-sm mt-2'>
+					Поле обязательно для заполнения
+				</p>
+			)}
 		</div>
 	);
 };

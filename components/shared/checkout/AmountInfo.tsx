@@ -11,10 +11,12 @@ import toast from 'react-hot-toast';
 import { hasPromocode } from '@/services/promocode';
 
 interface Props {
+	onPay: () => void;
 	className?: string;
 }
 
 export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
+	onPay,
 	className,
 }) => {
 	const [promocodeText, setPromocodeText] = useState('');
@@ -106,6 +108,7 @@ export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
 				<Button
 					type='submit'
 					className='w-full h-14 rounded-xl mt-6 text-base font-bold'
+					onClick={onPay}
 				>
 					Оплатить
 					<Wallet className='ml-3' />
