@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title } from '../Title';
 import { cn } from '@/shared/lib/utils';
 import { useDeliveryStore } from '@/shared/store/delivery';
@@ -9,16 +9,20 @@ import { Wallet } from 'lucide-react';
 import { useCartStore } from '@/shared/store/cart';
 import toast from 'react-hot-toast';
 import { hasPromocode } from '@/services/promocode';
+import { useOrderStore } from '@/shared/store/order';
 
 interface Props {
+	paying?: boolean;
 	onPay: () => void;
 	className?: string;
 }
 
 export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
+	paying,
 	onPay,
 	className,
 }) => {
+	const { setAmount } = useOrderStore((state) => state);
 	const [promocodeText, setPromocodeText] = useState('');
 	const [promocodeSale, setPromocodeSale] = useState(0);
 	const { price } = useDeliveryStore((state) => state);
@@ -33,7 +37,7 @@ export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
 		}
 
 		if (promocodeSale !== 0) {
-			toast.error('Промокод обновлён');
+			toast.success('Промокод успешно обновлён');
 			setPromocodeSale(promocode.sale);
 			return 0;
 		}
@@ -44,11 +48,16 @@ export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
 		}
 
 		setPromocodeSale(promocode.sale);
+		toast.success('Промокод успешно применён');
 	};
 
 	const amount = price
 		? price + totalAmount - promocodeSale
 		: totalAmount - promocodeSale;
+
+	useEffect(() => {
+		setAmount(amount);
+	}, [amount, setAmount]);
 
 	return (
 		<div className={cn('border border-violet-700 rounded-3xl', className)}>
@@ -106,6 +115,7 @@ export const AmountInfo: React.FC<React.PropsWithChildren<Props>> = ({
 				</div>
 
 				<Button
+					loading={paying}
 					type='submit'
 					className='w-full h-14 rounded-xl mt-6 text-base font-bold'
 					onClick={onPay}

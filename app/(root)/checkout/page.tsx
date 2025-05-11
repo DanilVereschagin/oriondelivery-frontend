@@ -5,12 +5,15 @@ import { Container, Title } from '@/components/shared';
 import { AmountInfo, DeliveryInfo } from '@/components/shared/checkout';
 import { CartInfo } from '@/components/shared/checkout';
 import { cn } from '@/shared/lib/utils';
-import React from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	CheckoutFormSchema,
 	CheckoutFormType,
 } from '@/components/schemas/CheckoutFormSchema';
+import { createOrder } from '@/shared/actions/actions';
+import toast from 'react-hot-toast';
+import { useOrderStore } from '@/shared/store/order';
 
 interface Props {
 	className?: string;
@@ -28,10 +31,29 @@ const Checkout: React.FC<Props> = ({ className }) => {
 		},
 	});
 
-	const onSubmit: SubmitHandler<CheckoutFormType> = (
+	const { amount } = useOrderStore((state) => state);
+
+	const [paying, setPaying] = useState(false);
+
+	const onSubmit: SubmitHandler<CheckoutFormType> = async (
 		data: CheckoutFormType
 	) => {
-		console.log(data);
+		try {
+			setPaying(true);
+
+			const url = await createOrder(data, amount);
+
+			toast.success('Заказ успешно создан. Переводим на оплату...');
+
+			if (url) {
+				location.href = url;
+			}
+		} catch (error) {
+			toast.error('Что-то пошло не так');
+			console.error(error);
+		} finally {
+			setPaying(false);
+		}
 	};
 
 	return (
@@ -46,6 +68,7 @@ const Checkout: React.FC<Props> = ({ className }) => {
 					</div>
 					<div className='w-[47%]'>
 						<AmountInfo
+							paying={paying}
 							onPay={form.handleSubmit(onSubmit)}
 							className='p-6 sticky top-[13.5rem]'
 						/>
