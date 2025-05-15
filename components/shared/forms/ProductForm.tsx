@@ -145,7 +145,7 @@ export const ProductForm: React.FC<Props> = ({
 			>
 				<Title text={product.name} size='md' className='font-bold text-black' />
 
-				<p className='text-violet-400'>{info}</p>
+				<p className='text-violet-400 text-ellipsis line-clamp-2'>{info}</p>
 
 				{isPizza && (
 					<div className='mt-5 flex flex-col gap-4'>

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 type State = {
-	amount?: number;
+	amount: number;
 	setAmount: (price: number) => void;
 };
 

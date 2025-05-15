@@ -78,17 +78,17 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 			},
 		});
 
-		// Ссылка на платежную систему
+		const url = `api/payment/${order.id}`;
 
 		await sendEmail(
 			data.email,
 			'Заказ оформлен',
 			Order({
-				data: { orderId: order.id, totalPrice: amount, url: 'https://ya.ru/' },
+				data: { orderId: order.id, totalPrice: amount, url: url },
 			})
 		);
 
-		return 'https://ya.ru/';
+		return url;
 	} catch (error) {
 		console.error(error);
 	}

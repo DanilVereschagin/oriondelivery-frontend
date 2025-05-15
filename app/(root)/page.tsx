@@ -4,6 +4,7 @@ import {
 	TopBar,
 	Filters,
 	ProductsGroupList,
+	Categories,
 } from '@/components/shared';
 import { SocialNetworks } from '@/components/shared/SocialNetworks';
 import { filterProducts, SearchParams } from '@/shared/lib/filter-products';
@@ -18,12 +19,14 @@ export default async function Home({
 
 	return (
 		<>
-			<Container className='mt-10'>
-				<Title text='Меню' size='lg' className='font-extrabold' />
-			</Container>
-			<TopBar categories={categories.filter((c) => c.products?.length > 0)} />
+			<TopBar />
 			<Container className='pb-14 mt-10'>
 				<div className='flex gap-[70px]'>
+					<div>
+						<Categories
+							categories={categories.filter((c) => c.products?.length > 0)}
+						/>
+					</div>
 					<div className='flex-1'>
 						<div className='flex flex-col gap-16'>
 							{(await categories).map(

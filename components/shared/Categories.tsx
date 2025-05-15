@@ -38,7 +38,7 @@ export const Categories: React.FC<Props> = ({ categories, className }) => {
 	return (
 		<div
 			className={cn(
-				'inline-flex gap-2 bg-violet-200 p-1 rounded-2xl',
+				'inline-flex flex-col gap-2 bg-violet-200 p-1 rounded-2xl sticky top-72',
 				className
 			)}
 		>
