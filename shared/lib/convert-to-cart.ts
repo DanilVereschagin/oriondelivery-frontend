@@ -1,4 +1,4 @@
-import { Cart, Ingredient } from '@prisma/client';
+import { Cart, Ingredient, ProductVariant } from '@prisma/client';
 
 export interface PlateCartItem {
 	id: number;
@@ -12,6 +12,7 @@ export interface PlateCartItem {
 		name: string;
 		price: number;
 	}[];
+	productVariant: ProductVariant;
 }
 
 export const convertToCart = (

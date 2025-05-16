@@ -16,8 +16,8 @@ export const search = async (query: string): Promise<Product[]> => {
 	return data;
 };
 
-export const getById = async (id: string): Promise<Product> => {
-	const product: Product = await prisma.product.findFirst({
+export const getById = async (id: string) => {
+	const product = await prisma.product.findFirst({
 		where: {
 			id: Number(id),
 		},

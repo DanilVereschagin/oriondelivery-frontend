@@ -5,6 +5,9 @@ import { prisma } from '@/prisma/PrismaClient';
 import { cookies } from 'next/headers';
 import { sendEmail } from '../lib/send-email';
 import { Order } from '@/components/emails/order';
+import { PaymentFormType } from '@/components/schemas/PaymentFormSchema';
+import { PlateCartItem } from '../lib/convert-to-cart';
+import { Payment } from '@/components/emails/payment';
 
 export async function createOrder(data: CheckoutFormType, amount: number) {
 	try {
@@ -60,6 +63,11 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 				comment: data.comment,
 				totalAmount: amount,
 				items: JSON.stringify(cart.cartItems),
+				user: {
+					connect: {
+						id: Number(id),
+					},
+				},
 			},
 		});
 
@@ -78,7 +86,7 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 			},
 		});
 
-		const url = `api/payment/${order.id}`;
+		const url = `payment/${order.id}`;
 
 		await sendEmail(
 			data.email,
@@ -89,6 +97,41 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 		);
 
 		return url;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function payOrder(data: PaymentFormType, orderId: number) {
+	try {
+		const order = await prisma.order.findFirst({
+			where: {
+				id: orderId,
+			},
+		});
+
+		if (!order) {
+			throw new Error('Заказ не найден');
+		}
+
+		await prisma.order.update({
+			where: {
+				id: orderId,
+			},
+			data: {
+				status: 'SUCCEEDED',
+			},
+		});
+
+		const items = JSON.parse(order.items as string) as PlateCartItem[];
+
+		sendEmail(
+			order.email,
+			'Заказ оплачен',
+			Payment({
+				data: { orderId: order.id, totalPrice: order.totalAmount, items },
+			})
+		);
 	} catch (error) {
 		console.error(error);
 	}

@@ -14,6 +14,7 @@ import {
 import { createOrder } from '@/shared/actions/actions';
 import toast from 'react-hot-toast';
 import { useOrderStore } from '@/shared/store/order';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	className?: string;
@@ -35,6 +36,8 @@ const Checkout: React.FC<Props> = ({ className }) => {
 
 	const [paying, setPaying] = useState(false);
 
+	const router = useRouter();
+
 	const onSubmit: SubmitHandler<CheckoutFormType> = async (
 		data: CheckoutFormType
 	) => {
@@ -46,7 +49,7 @@ const Checkout: React.FC<Props> = ({ className }) => {
 			toast.success('Заказ успешно создан. Переводим на оплату...');
 
 			if (url) {
-				location.href = url;
+				router.push(url);
 			}
 		} catch (error) {
 			toast.error('Что-то пошло не так');
