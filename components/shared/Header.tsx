@@ -1,19 +1,27 @@
+'use client';
+
 import { cn } from '@/shared/lib/utils';
 import React from 'react';
 import { Container } from './Container';
 import Image from 'next/image';
 import { Button } from '../ui';
-import { UserRound } from 'lucide-react';
+import { CircleUser, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { ModeToggle } from '../ui/toggle';
 import { CartButton } from './buttons';
 import classes from '@/components/style/Flicker.module.scss';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	className?: string;
 }
 
 export const Header: React.FC<Props> = ({ className }) => {
+	const { data: session } = useSession();
+
+	const router = useRouter();
+
 	return (
 		<header
 			className={cn(
@@ -43,13 +51,39 @@ export const Header: React.FC<Props> = ({ className }) => {
 				</Link>
 
 				<div className='flex items-center gap-3'>
+					{session && (
+						<Button variant='outline' className='flex items-center gap-2'>
+							<CircleUser size={16} />
+							Профиль
+						</Button>
+					)}
+
 					<ModeToggle />
 					<CartButton />
 
-					<Button variant='outline' className='flex items-center gap-2'>
-						<UserRound size={16} />
-						Войти
-					</Button>
+					{session ? (
+						<Button
+							onClick={() =>
+								signOut({
+									callbackUrl: '/',
+								})
+							}
+							variant='outline'
+							className='flex items-center gap-2'
+						>
+							<UserRound size={16} />
+							Выйти
+						</Button>
+					) : (
+						<Button
+							onClick={() => router.push('/auth')}
+							variant='outline'
+							className='flex items-center gap-2'
+						>
+							<UserRound size={16} />
+							Войти
+						</Button>
+					)}
 				</div>
 			</Container>
 		</header>

@@ -1,7 +1,10 @@
+'use client';
+
 import { Nunito } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Toaster } from 'react-hot-toast';
+import { SessionProvider } from 'next-auth/react';
 
 const nunito = Nunito({
 	subsets: ['cyrillic'],
@@ -21,13 +24,14 @@ export default function RootLayout({
 			</head>
 			<body className={nunito.className}>
 				<Toaster />
+
 				<ThemeProvider
 					attribute='class'
 					defaultTheme='system'
 					enableSystem
 					disableTransitionOnChange
 				>
-					{children}
+					<SessionProvider>{children}</SessionProvider>
 				</ThemeProvider>
 			</body>
 		</html>
