@@ -51,8 +51,23 @@ export const Header: React.FC<Props> = ({ className }) => {
 				</Link>
 
 				<div className='flex items-center gap-3'>
+					{session?.user?.role === 'ADMIN' && (
+						<Button
+							variant='outline'
+							size={'lg'}
+							onClick={() => router.push('/admin')}
+							className='flex items-center gap-2 text-red-600 border-red-600'
+						>
+							<CircleUser size={16} />
+							Админ панель
+						</Button>
+					)}
 					{session && (
-						<Button variant='outline' className='flex items-center gap-2'>
+						<Button
+							onClick={() => router.push('/profile')}
+							variant='outline'
+							className='flex items-center gap-2'
+						>
 							<CircleUser size={16} />
 							Профиль
 						</Button>

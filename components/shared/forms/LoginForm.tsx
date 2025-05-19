@@ -2,7 +2,6 @@
 
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import YandexIcon from '@/public/assets/SocialNetworks/Yandex.webp';
 import GoogleIcon from '@/public/assets/SocialNetworks/Google.png';
 import Image from 'next/image';
@@ -14,6 +13,8 @@ import {
 	LoginFormType,
 } from '@/components/schemas/LoginSchema';
 import { FormInput } from '@/components/ui/form';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	className?: string;
@@ -28,7 +29,26 @@ export function LoginForm({ className }: Props) {
 		resolver: zodResolver(LoginFormSchema),
 	});
 
+	const router = useRouter();
+
 	const onSubmit = async (data: LoginFormType) => {
+		try {
+			const result = await signIn('credentials', {
+				redirect: false,
+				...data,
+			});
+
+			if (!result?.ok) {
+				return toast.error('Неверный логин или пароль');
+			}
+
+			toast.success('Вы успешно вошли в аккаунт');
+
+			router.push('/');
+		} catch (error) {
+			toast.error('Не удалось войти в аккаунт');
+			console.log(error);
+		}
 		console.log(data);
 	};
 
@@ -63,6 +83,7 @@ export function LoginForm({ className }: Props) {
 						</div>
 					</div>
 					<Button
+						loading={form.formState.isSubmitting}
 						onClick={form.handleSubmit(onSubmit)}
 						type='submit'
 						className='w-full text-xl'

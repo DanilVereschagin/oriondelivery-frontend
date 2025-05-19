@@ -15,9 +15,10 @@ async function up() {
 			{
 				fullName: 'Test',
 				email: 'test@gmail.com',
-				password: hashSync('11111111', 10),
+				password: hashSync('test_test', 10),
 				verified: new Date(),
 				role: 'USER',
+				phone: '+7 (900) 900-90-90',
 			},
 			{
 				fullName: 'Admin',
@@ -25,6 +26,7 @@ async function up() {
 				password: hashSync('admin_admin', 10),
 				verified: new Date(),
 				role: 'ADMIN',
+				phone: '8 (800) 555 35 35',
 			},
 		],
 	});
