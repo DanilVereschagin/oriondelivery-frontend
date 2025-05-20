@@ -7,6 +7,7 @@ interface Props extends React.ComponentProps<'input'> {
 	label?: string;
 	required?: boolean;
 	className?: string;
+	error?: string;
 }
 
 export const FormInput: React.FC<Props> = ({
@@ -14,6 +15,7 @@ export const FormInput: React.FC<Props> = ({
 	label,
 	required,
 	className,
+	error,
 	...props
 }) => {
 	const {
@@ -21,7 +23,9 @@ export const FormInput: React.FC<Props> = ({
 		formState: { errors },
 	} = useFormContext();
 
-	const error = errors[name]?.message as string;
+	if (!error) {
+		error = errors[name]?.message as string;
+	}
 
 	return (
 		<div className={className}>
@@ -38,11 +42,7 @@ export const FormInput: React.FC<Props> = ({
 				{...props}
 			/>
 
-			{error && (
-				<p className='text-red-600 text-sm mt-2'>
-					Поле обязательно для заполнения
-				</p>
-			)}
+			{error && <p className='text-red-600 text-sm mt-2'>{error}</p>}
 		</div>
 	);
 };

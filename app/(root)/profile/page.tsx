@@ -1,8 +1,9 @@
 import { Container } from '@/components/shared';
+import { Profile } from '@/components/shared/profile';
 import { getSession } from '@/shared/lib/hasSession';
 import { redirect } from 'next/navigation';
 
-const Profile = async () => {
+const ProfilePage = async () => {
 	const session = await getSession();
 
 	if (!session) {
@@ -11,9 +12,9 @@ const Profile = async () => {
 
 	return (
 		<Container className='flex my-10'>
-			<h1>Profile</h1>
+			<Profile className='flex flex-1 flex-col items-center' />
 		</Container>
 	);
 };
 
-export default Profile;
+export default ProfilePage;

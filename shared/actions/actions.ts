@@ -8,6 +8,10 @@ import { Order } from '@/components/emails/order';
 import { PaymentFormType } from '@/components/schemas/PaymentFormSchema';
 import { PlateCartItem } from '../lib/convert-to-cart';
 import { Payment } from '@/components/emails/payment';
+import { RegistrationFormType } from '@/components/schemas/RegistrationSchema';
+import { getSession } from '../lib/hasSession';
+import { hashSync } from 'bcrypt';
+import { ProfileFormType } from '@/components/schemas/ProfileFormSchema';
 
 export async function createOrder(data: CheckoutFormType, amount: number) {
 	try {
@@ -134,5 +138,42 @@ export async function payOrder(data: PaymentFormType, orderId: number) {
 		);
 	} catch (error) {
 		console.error(error);
+	}
+}
+
+export async function updateUser(data: ProfileFormType) {
+	try {
+		const session = await getSession();
+
+		if (!session) {
+			throw new Error('Пользователь не авторизован');
+		}
+
+		if (data.password) {
+			await prisma.user.update({
+				where: {
+					id: Number(session.id),
+				},
+				data: {
+					fullName: data.fullName,
+					email: data.email,
+					phone: data.phone,
+					password: hashSync(data.password, 10),
+				},
+			});
+		} else {
+			await prisma.user.update({
+				where: {
+					id: Number(session.id),
+				},
+				data: {
+					fullName: data.fullName,
+					email: data.email,
+					phone: data.phone,
+				},
+			});
+		}
+	} catch (error) {
+		console.log(error);
 	}
 }
