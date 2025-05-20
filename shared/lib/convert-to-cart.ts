@@ -21,6 +21,13 @@ export const convertToCart = (
 	cartItems: PlateCartItem[];
 	totalAmount: number;
 } => {
+	if (!data) {
+		return {
+			cartItems: [],
+			totalAmount: 0,
+		};
+	}
+
 	const items = data.cartItems.map((item) => ({
 		id: item.id,
 		quantity: item.quantity,

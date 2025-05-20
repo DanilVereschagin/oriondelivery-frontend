@@ -17,7 +17,7 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 	try {
 		const cookiesStore = cookies();
 		const token = cookiesStore.get('token')?.value || '';
-		const id = 1;
+		const id = getSession()?.id;
 
 		if (!token && !id) {
 			throw new Error('Токен или ID не найден');
@@ -173,6 +173,37 @@ export async function updateUser(data: ProfileFormType) {
 				},
 			});
 		}
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export async function registerUser(data: RegistrationFormType) {
+	try {
+		const user = await prisma.user.findFirst({
+			where: {
+				email: data.email,
+			},
+		});
+
+		if (user) {
+			if (!user.verified) {
+				throw new Error(
+					'Пользователь с таким email уже зарегистрирован. Подтвердите почту и авторизуйтесь'
+				);
+			}
+
+			throw new Error('Пользователь с таким email уже зарегистрирован');
+		}
+
+		await prisma.user.create({
+			data: {
+				fullName: data.fullName,
+				email: data.email,
+				phone: data.phone,
+				password: hashSync(data.password, 10),
+			},
+		});
 	} catch (error) {
 		console.log(error);
 	}

@@ -1,66 +1,99 @@
 'use client';
 
-import { cn } from '@/shared/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import YandexIcon from '@/public/assets/SocialNetworks/Yandex.webp';
-import GoogleIcon from '@/public/assets/SocialNetworks/Google.png';
-import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+	RegistrationFormSchema,
+	RegistrationFormType,
+} from '@/components/schemas/RegistrationSchema';
+import { FormInput } from '@/components/ui/form';
+import { cn } from '@/shared/lib/utils';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { Title } from '../Title';
+import { registerUser } from '@/shared/actions/actions';
 
-export function RegistrationForm({
-	className,
-	...props
-}: React.ComponentPropsWithoutRef<'form'>) {
+interface Props {
+	className?: string;
+}
+
+export function RegistrationForm({ className }: Props) {
+	const form = useForm({
+		resolver: zodResolver(RegistrationFormSchema),
+		defaultValues: {
+			fullName: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
+			phone: '',
+		},
+	});
+
+	const router = useRouter();
+
+	const onSubmit = async (data: RegistrationFormType) => {
+		try {
+			// await registerUser(data);
+			console.log(data);
+
+			toast.success('Регистрация прошла успешно. Активируйте аккаунт');
+
+			router.push('/');
+		} catch (error) {
+			toast.error('Не удалось зарегистрироваться, попробуйте позже');
+			toast.error(error as string);
+			console.log(error);
+		}
+	};
+
 	return (
-		<form className={cn('flex flex-col gap-6', className)} {...props}>
+		<FormProvider {...form}>
 			<div className='flex flex-col items-center gap-2 text-center'>
-				<h1 className='text-2xl font-bold'>Регистрация</h1>
-				<p className='text-balance text-sm text-muted-foreground'>
-					Введите данные
-				</p>
+				<Title className='text-3xl font-bold' size='xl' text='Регистрация' />
 			</div>
-			<div className='grid gap-6'>
-				<div className='grid gap-2'>
-					{/* <Label htmlFor='email'>Email</Label> */}
-					<Input id='email' type='email' placeholder='m@example.com' required />
-				</div>
-				<div className='grid gap-2'>
-					<div className='flex items-center'>
-						{/* <Label htmlFor='password'>Password</Label> */}
-					</div>
-					<Input id='password' type='password' placeholder='Пароль' required />
-				</div>
-				<Button type='submit' className='w-full text-xl'>
-					Войти
-				</Button>
-				<div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
-					<span className='relative z-10 bg-background px-2 text-muted-foreground'>
-						Или войдите через
-					</span>
+			<form className={cn(className, 'mt-4 flex flex-col gap-4 w-full')}>
+				<FormInput
+					type='text'
+					name='fullName'
+					placeholder='ФИО или ник'
+					required
+				/>
+				<FormInput
+					type='email'
+					name='email'
+					placeholder='example@mail.ru'
+					required
+				/>
+				<FormInput
+					type='tel'
+					name='phone'
+					placeholder='Номер формата: 89005553535'
+					required
+				/>
+				<div className='flex flex-row gap-2 w-full'>
+					<FormInput
+						className='w-full'
+						type='password'
+						name='password'
+						placeholder='Пароль'
+					/>
+					<FormInput
+						className='w-full'
+						type='password'
+						name='confirmPassword'
+						placeholder='Повторите пароль'
+						error={form.formState.errors.confirmPassword?.message}
+					/>
 				</div>
 				<Button
-					onClick={() =>
-						signIn('google', {
-							callbackUrl: '/',
-							redirect: true,
-						})
-					}
-					variant='outline'
-					className='w-full flex gap-2 text-xl'
+					onClick={form.handleSubmit(onSubmit)}
+					type='submit'
+					loading={form.formState.isSubmitting}
 				>
-					<Image src={GoogleIcon} alt='Google' width={20} height={20} />
-					Войти через Google
+					Зарегистрироваться
 				</Button>
-				<Button
-					onClick={() => signIn('yandex', { callbackUrl: '/', redirect: true })}
-					variant='outline'
-					className='w-full flex gap-2 text-xl'
-				>
-					<Image src={YandexIcon} alt='Yandex' width={20} height={20} />
-					Войти через Yandex
-				</Button>
-			</div>
-		</form>
+			</form>
+		</FormProvider>
 	);
 }

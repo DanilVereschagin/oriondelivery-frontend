@@ -4,17 +4,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { AddCartItem } from '@/services/cart';
 import { updateTotalAmount } from '@/shared/lib/update-total-amount';
+import { getSession } from '@/shared/lib/hasSession';
 
 export async function GET(req: NextRequest) {
 	try {
-		const id = 1;
+		const session = await getSession();
+
+		const id = session?.id;
+
 		const token = req.cookies.get('token')?.value || '';
 
 		if (!token && !id) {
 			return NextResponse.json({ totalAmount: 0, cart: [] });
 		}
 
-		const cart = await prisma.cart.findFirst({
+		let cart = null;
+
+		cart = await prisma.cart.findFirst({
 			where: {
 				OR: [
 					{
@@ -56,7 +62,10 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
 	try {
-		const id = 1;
+		const session = await getSession();
+
+		const id = session?.id;
+
 		let token = req.cookies.get('token')?.value || '';
 
 		if (!token) {
