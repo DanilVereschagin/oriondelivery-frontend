@@ -18,5 +18,8 @@ export const getOrders = async (userId: number) => {
 		where: {
 			userId: userId,
 		},
+		orderBy: {
+			createdAt: 'desc',
+		},
 	});
 };

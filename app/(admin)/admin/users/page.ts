@@ -4,7 +4,7 @@ import { getSession } from '@/shared/lib/hasSession';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
-const AdminPage = async () => {
+const Page = async () => {
 	const session = await getSession();
 
 	if (!session) {
@@ -22,4 +22,4 @@ const AdminPage = async () => {
 	);
 };
 
-export default AdminPage;
+export default Page;

@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { useOrderStore } from '@/shared/store/order';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useDeliveryStore } from '@/shared/store/delivery';
 
 interface Props {
 	className?: string;
@@ -44,6 +45,7 @@ const Checkout: React.FC<Props> = ({ className }) => {
 	}, [form, session]);
 
 	const { amount } = useOrderStore((state) => state);
+	const { type } = useDeliveryStore((state) => state);
 
 	const [paying, setPaying] = useState(false);
 
@@ -55,7 +57,7 @@ const Checkout: React.FC<Props> = ({ className }) => {
 		try {
 			setPaying(true);
 
-			const url = await createOrder(data, amount);
+			const url = await createOrder(data, amount, type!);
 
 			toast.success('Заказ успешно создан. Переводим на оплату...');
 

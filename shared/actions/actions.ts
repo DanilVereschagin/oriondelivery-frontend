@@ -13,8 +13,13 @@ import { getSession } from '../lib/hasSession';
 import { hashSync } from 'bcrypt';
 import { ProfileFormType } from '@/components/schemas/ProfileFormSchema';
 import { Code } from '@/components/emails/code';
+import { DeliveryType } from '../constants/delivery';
 
-export async function createOrder(data: CheckoutFormType, amount: number) {
+export async function createOrder(
+	data: CheckoutFormType,
+	amount: number,
+	type: string
+) {
 	try {
 		const cookiesStore = cookies();
 		const token = cookiesStore.get('token')?.value || '';
@@ -69,6 +74,7 @@ export async function createOrder(data: CheckoutFormType, amount: number) {
 				address: data.address,
 				comment: data.comment,
 				totalAmount: amount,
+				deliveryType: type as DeliveryType,
 				items: JSON.stringify(cart.cartItems),
 				user: {
 					connect: {

@@ -13,14 +13,10 @@ export default function RootLayout({
 	modal: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
-			<body>
-				<main className='min-h-screen'>
-					<Header />
-					{children}
-					{modal}
-				</main>
-			</body>
-		</html>
+		<main className='min-h-screen'>
+			<Header />
+			{children}
+			{modal}
+		</main>
 	);
 }

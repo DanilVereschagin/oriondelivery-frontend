@@ -2,35 +2,31 @@
 
 import { Container, Title } from '@/components/shared';
 import { Button } from '@/components/ui';
-import NotAuthIcon from '@/public/decor/NotAuth.png';
+import NotAdminIcon from '@/public/decor/NotAdmin.png';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const NotAuth = () => {
+const NotAdmin = () => {
 	const router = useRouter();
 
 	return (
 		<Container className='flex my-10'>
 			<div className='flex flex-1 flex-col items-center justify-center'>
-				<Title className='font-bold' size='xl' text='Вы не авторизованы' />
-				<Image src={NotAuthIcon} alt='not auth' width={400} height={400} />
+				<Title
+					className='font-bold text-red-500'
+					size='xl'
+					text='Вы не администратор'
+				/>
+				<Image src={NotAdminIcon} alt='not admin' width={400} height={400} />
 				<div className='flex flex-row gap-4 mt-4'>
-					<Button
-						type='submit'
-						onClick={() => router.push('/auth')}
-						size={'lg'}
-						className='text-xl'
-					>
-						Авторизоваться
-					</Button>
 					<Button
 						onClick={() => router.push('/')}
 						type='submit'
 						size={'lg'}
-						className='text-xl'
+						className='text-xl text-red-500 border-red-500'
 						variant='outline'
 					>
-						Вернуться
+						Вернуться на главную
 					</Button>
 				</div>
 			</div>
@@ -38,4 +34,4 @@ const NotAuth = () => {
 	);
 };
 
-export default NotAuth;
+export default NotAdmin;
