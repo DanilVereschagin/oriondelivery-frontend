@@ -15,12 +15,15 @@ import {
 import { FormInput } from '@/components/ui/form';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { SearchParamsProps } from '@/app/(root)/auth/page';
+import { useDebounce } from 'react-use';
 
 interface Props {
+	searchParams?: SearchParamsProps;
 	className?: string;
 }
 
-export function LoginForm({ className }: Props) {
+export function LoginForm({ searchParams, className }: Props) {
 	const form = useForm<LoginFormType>({
 		defaultValues: {
 			email: '',
@@ -30,6 +33,19 @@ export function LoginForm({ className }: Props) {
 	});
 
 	const router = useRouter();
+
+	useDebounce(
+		() => {
+			if (searchParams) {
+				if (searchParams.active !== null && searchParams.active !== undefined) {
+					console.log(searchParams.active);
+					toast.success('Аккаунт активирован');
+				}
+			}
+		},
+		200,
+		[]
+	);
 
 	const onSubmit = async (data: LoginFormType) => {
 		try {
@@ -56,7 +72,7 @@ export function LoginForm({ className }: Props) {
 		<FormProvider {...form}>
 			<div className={cn('flex flex-col gap-6', className)}>
 				<div className='flex flex-col items-center gap-2 text-center'>
-					<h1 className='text-2xl font-bold'>Войди в аккаунт</h1>
+					<h1 className='text-2xl font-bold'>Вход в аккаунт</h1>
 					<p className='text-balance text-sm text-muted-foreground'>
 						Введите логин и пароль
 					</p>

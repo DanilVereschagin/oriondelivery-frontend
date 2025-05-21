@@ -12,12 +12,15 @@ import { RegistrationFormType } from '@/components/schemas/RegistrationSchema';
 import { getSession } from '../lib/hasSession';
 import { hashSync } from 'bcrypt';
 import { ProfileFormType } from '@/components/schemas/ProfileFormSchema';
+import { Code } from '@/components/emails/code';
 
 export async function createOrder(data: CheckoutFormType, amount: number) {
 	try {
 		const cookiesStore = cookies();
 		const token = cookiesStore.get('token')?.value || '';
-		const id = getSession()?.id;
+		const session = await getSession();
+
+		const id = session?.id;
 
 		if (!token && !id) {
 			throw new Error('Токен или ID не найден');
@@ -196,7 +199,7 @@ export async function registerUser(data: RegistrationFormType) {
 			throw new Error('Пользователь с таким email уже зарегистрирован');
 		}
 
-		await prisma.user.create({
+		const newUser = await prisma.user.create({
 			data: {
 				fullName: data.fullName,
 				email: data.email,
@@ -204,6 +207,25 @@ export async function registerUser(data: RegistrationFormType) {
 				password: hashSync(data.password, 10),
 			},
 		});
+
+		const code = Math.floor(
+			Math.random() * (9999 - 1000 + 1) + 1000
+		).toString();
+
+		await prisma.verificationCode.create({
+			data: {
+				code,
+				userId: newUser.id,
+			},
+		});
+
+		sendEmail(
+			newUser.email,
+			'Активация аккаунта',
+			Code({
+				code: code,
+			})
+		);
 	} catch (error) {
 		console.log(error);
 	}

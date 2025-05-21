@@ -49,14 +49,9 @@ export const ProfileForm: React.FC<Props> = ({ data, className }) => {
 	};
 
 	return (
-		<Container
-			className={cn(
-				'mt-10 w-[100%] grid grid-cols-2 gap-40 justify-items-center',
-				className
-			)}
-		>
+		<Container className={className}>
 			<FormProvider {...form}>
-				<form className='flex flex-col gap-4 w-full'>
+				<form className={cn('flex flex-col gap-4 w-full')}>
 					<FormInput
 						type='text'
 						name='fullName'
@@ -99,7 +94,6 @@ export const ProfileForm: React.FC<Props> = ({ data, className }) => {
 					</Button>
 				</form>
 			</FormProvider>
-			<div>Заказы</div>
 		</Container>
 	);
 };

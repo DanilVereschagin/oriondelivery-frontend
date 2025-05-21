@@ -12,3 +12,11 @@ export const getById = async (id: string) => {
 
 	return order;
 };
+
+export const getOrders = async (userId: number) => {
+	return await prisma.order.findMany({
+		where: {
+			userId: userId,
+		},
+	});
+};

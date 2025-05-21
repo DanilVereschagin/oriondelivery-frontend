@@ -34,8 +34,7 @@ export function RegistrationForm({ className }: Props) {
 
 	const onSubmit = async (data: RegistrationFormType) => {
 		try {
-			// await registerUser(data);
-			console.log(data);
+			await registerUser(data);
 
 			toast.success('Регистрация прошла успешно. Активируйте аккаунт');
 

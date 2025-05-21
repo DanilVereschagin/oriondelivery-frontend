@@ -46,7 +46,7 @@ export const Payment: React.FC<Props> = ({ className, order }) => {
 
 			toast.success('Заказ оплачен');
 
-			router.push('profile/orders');
+			router.push('/profile');
 		} catch (error) {
 			toast.error('Что-то пошло не так');
 			console.log(error);

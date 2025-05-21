@@ -5,7 +5,7 @@ import { Container, Title } from '@/components/shared';
 import { AmountInfo, DeliveryInfo } from '@/components/shared/checkout';
 import { CartInfo } from '@/components/shared/checkout';
 import { cn } from '@/shared/lib/utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	CheckoutFormSchema,
@@ -15,12 +15,15 @@ import { createOrder } from '@/shared/actions/actions';
 import toast from 'react-hot-toast';
 import { useOrderStore } from '@/shared/store/order';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface Props {
 	className?: string;
 }
 
 const Checkout: React.FC<Props> = ({ className }) => {
+	const { data: session } = useSession();
+
 	const form = useForm<CheckoutFormType>({
 		resolver: zodResolver(CheckoutFormSchema),
 		defaultValues: {
@@ -31,6 +34,14 @@ const Checkout: React.FC<Props> = ({ className }) => {
 			comment: '',
 		},
 	});
+
+	useEffect(() => {
+		if (session?.user) {
+			form.setValue('email', session.user.email ?? '');
+			form.setValue('fullName', session.user.name ?? '');
+			form.setValue('phone', session.user.phone ?? '');
+		}
+	}, [form, session]);
 
 	const { amount } = useOrderStore((state) => state);
 
