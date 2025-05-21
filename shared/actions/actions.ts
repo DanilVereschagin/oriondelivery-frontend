@@ -14,6 +14,7 @@ import { hashSync } from 'bcrypt';
 import { ProfileFormType } from '@/components/schemas/ProfileFormSchema';
 import { Code } from '@/components/emails/code';
 import { DeliveryType } from '../constants/delivery';
+import { OrderStatus } from '@prisma/client';
 
 export async function createOrder(
 	data: CheckoutFormType,
@@ -187,6 +188,47 @@ export async function updateUser(data: ProfileFormType) {
 	}
 }
 
+export async function updateAnotherUser(data: ProfileFormType, id: number) {
+	try {
+		const session = await getSession();
+
+		if (!session) {
+			throw new Error('Пользователь не авторизован');
+		}
+
+		if (session.role !== 'ADMIN') {
+			throw new Error('Недостаточно прав');
+		}
+
+		if (data.password) {
+			await prisma.user.update({
+				where: {
+					id: Number(id),
+				},
+				data: {
+					fullName: data.fullName,
+					email: data.email,
+					phone: data.phone,
+					password: hashSync(data.password, 10),
+				},
+			});
+		} else {
+			await prisma.user.update({
+				where: {
+					id: Number(id),
+				},
+				data: {
+					fullName: data.fullName,
+					email: data.email,
+					phone: data.phone,
+				},
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 export async function registerUser(data: RegistrationFormType) {
 	try {
 		const user = await prisma.user.findFirst({
@@ -234,5 +276,20 @@ export async function registerUser(data: RegistrationFormType) {
 		);
 	} catch (error) {
 		console.log(error);
+	}
+}
+
+export async function updateOrderStatus(orderId: number, status: OrderStatus) {
+	try {
+		await prisma.order.update({
+			where: {
+				id: orderId,
+			},
+			data: {
+				status,
+			},
+		});
+	} catch (error) {
+		console.error(error);
 	}
 }

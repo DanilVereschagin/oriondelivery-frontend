@@ -12,15 +12,28 @@ import { CartButton } from './buttons';
 import classes from '@/components/style/Flicker.module.scss';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface Props {
 	className?: string;
 }
 
 export const Header: React.FC<Props> = ({ className }) => {
-	const { data: session } = useSession();
+	const data = useSession();
+	const session = data.data;
 
 	const router = useRouter();
+
+	const handleSignOut = () => {
+		try {
+			signOut({
+				callbackUrl: '/',
+			});
+		} catch (error) {
+			console.log(error);
+			toast.error('Что-то пошло не так');
+		}
+	};
 
 	return (
 		<header
@@ -78,11 +91,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
 					{session ? (
 						<Button
-							onClick={() =>
-								signOut({
-									callbackUrl: '/',
-								})
-							}
+							onClick={() => handleSignOut()}
 							variant='outline'
 							className='flex items-center gap-2'
 						>

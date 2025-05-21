@@ -1,8 +1,8 @@
-import { Container } from '@/components/shared';
-import { AdminOrders } from '@/components/shared/admin';
 import { getSession } from '@/shared/lib/hasSession';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { Container } from '@/components/shared';
+import { AdminStatistics } from '@/components/shared/admin';
 
 const Page = async () => {
 	const session = await getSession();
@@ -16,9 +16,9 @@ const Page = async () => {
 	}
 
 	return (
-		<Container className='mt-10'>
-			<AdminOrders />
-		</Container>
+        <Container className='mt-10'>
+            <AdminStatistics />
+        </Container>
 	);
 };
 

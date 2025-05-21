@@ -23,3 +23,12 @@ export const getOrders = async (userId: number) => {
 		},
 	});
 };
+
+export const getAllOrders = async () => {
+	return await prisma.order.findMany({
+		orderBy: {
+			createdAt: 'desc',
+		},
+		take: 100,
+	});
+};

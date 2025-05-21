@@ -94,6 +94,8 @@ export const config: AuthOptions = {
 	],
 	session: {
 		strategy: 'jwt',
+		maxAge: 60 * 60 * 24,
+		updateAge: 60 * 60,
 	},
 	callbacks: {
 		async signIn({ user, account }) {
@@ -177,6 +179,7 @@ export const config: AuthOptions = {
 				session.user.id = token.id;
 				session.user.role = token.role;
 				session.user.phone = token.phone;
+				session.expires = token.exp as string;
 			}
 
 			return session;

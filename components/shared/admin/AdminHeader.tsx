@@ -11,15 +11,31 @@ import { ModeToggle } from '../../ui/toggle';
 import classes from '@/components/style/Flicker.module.scss';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface Props {
 	className?: string;
 }
 
 export const AdminHeader: React.FC<Props> = ({ className }) => {
-	const { data: session } = useSession();
+	const data = useSession();
+	const session = data.data;
 
 	const router = useRouter();
+
+	const handleSignOut = async () => {
+		try {
+			await signOut({
+				redirect: false,
+				callbackUrl: '/',
+			});
+			router.push('/');
+			router.refresh();
+		} catch (error) {
+			console.log(error);
+			toast.error('Что-то пошло не так');
+		}
+	};
 
 	return (
 		<header
@@ -43,7 +59,7 @@ export const AdminHeader: React.FC<Props> = ({ className }) => {
 								ADMIN
 							</h1>
 							<p className='text-sm text-gray-400 leading-3'>
-								Через тернии к вашему подъезду
+								Честь превыше всего
 							</p>
 						</div>
 					</div>
@@ -92,11 +108,7 @@ export const AdminHeader: React.FC<Props> = ({ className }) => {
 
 					{session ? (
 						<Button
-							onClick={() =>
-								signOut({
-									callbackUrl: '/',
-								})
-							}
+							onClick={() => handleSignOut()}
 							variant='outline'
 							className='flex items-center gap-2 text-red-500 border-red-500'
 						>

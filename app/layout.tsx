@@ -31,7 +31,9 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<SessionProvider>{children}</SessionProvider>
+					<SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
+						{children}
+					</SessionProvider>
 				</ThemeProvider>
 			</body>
 		</html>
