@@ -6,6 +6,6 @@ type State = {
 };
 
 export const useAdminStore = create<State>((set) => ({
-	page: 'ORDERS',
+	page: 'Пицца',
 	setPage: (page: string) => set({ page }),
 }));

@@ -127,16 +127,16 @@ export const AdminOrders: React.FC<Props> = ({ orders, className }) => {
 								Оплачен
 							</Button>
 							<Button
-								onClick={() => handleOrderUpdate(order.id, 'CANCELLED')}
-								className='bg-gray-600 text-white font-bold'
-							>
-								Отменён
-							</Button>
-							<Button
 								onClick={() => handleOrderUpdate(order.id, 'PENDING')}
 								className='bg-orange-400 text-white font-bold'
 							>
 								Ждёт оплаты
+							</Button>
+							<Button
+								onClick={() => handleOrderUpdate(order.id, 'CANCELLED')}
+								className='bg-gray-600 text-white font-bold'
+							>
+								Отменён
 							</Button>
 						</div>
 					</div>

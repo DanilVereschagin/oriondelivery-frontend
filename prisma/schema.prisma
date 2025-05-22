@@ -17,6 +17,7 @@ enum OrderStatus {
 enum UserRole {
     USER
     ADMIN
+    MANAGER
 }
 
 enum DeliveryType {
@@ -77,6 +78,18 @@ model Product {
     ProductFeedback ProductFeedback[]
 
     ProductStars ProductStars[]
+}
+
+model ProductStatistics {
+    id Int @id @default(autoincrement())
+
+    count Int
+
+    name       String
+    categoryId Int
+
+    createdAt DateTime @default(now())
+    updateAt  DateTime @updatedAt
 }
 
 model ProductFeedback {

@@ -509,6 +509,344 @@ export const products = [
 	},
 ];
 
+export const statistics = [
+	{
+		name: 'Чилл Грилл',
+		categoryId: 1,
+		count: 12,
+	},
+	{
+		name: 'Баварская',
+		count: 20,
+		categoryId: 1,
+	},
+	{
+		name: 'Мясной микс с говядиной и колбасками',
+		count: 21,
+		categoryId: 1,
+	},
+	{
+		name: 'Креветка и Песто',
+		count: 10,
+		categoryId: 1,
+	},
+	{
+		name: 'Сырная',
+		count: 17,
+		categoryId: 1,
+	},
+	{
+		name: 'Пепперони',
+		count: 48,
+		categoryId: 1,
+	},
+	{
+		name: 'Черизо фреш',
+		count: 12,
+		categoryId: 1,
+	},
+	{
+		name: 'Ветчина и грибы',
+		count: 72,
+		categoryId: 1,
+	},
+	{
+		name: 'Омлет с томатами в пите',
+		categoryId: 2,
+		count: 42,
+	},
+	{
+		name: 'Омлет с беконом в пите',
+		count: 7,
+		categoryId: 2,
+	},
+	{
+		name: 'Омлет с ветчиной и грибами в пите',
+		count: 12,
+		categoryId: 2,
+	},
+	{
+		name: 'Омлет с пепперони в пите',
+		count: 3,
+		categoryId: 2,
+	},
+	{
+		name: 'Омлет сырный в пите',
+		count: 5,
+		categoryId: 2,
+	},
+	{
+		name: 'Шаурма с ветчиной',
+		count: 2,
+		categoryId: 2,
+	},
+	{
+		name: 'Сырники со сгущённым молоком',
+		count: 5,
+		categoryId: 2,
+	},
+	{
+		name: 'Сырники с малиновым вареньем',
+		count: 8,
+		categoryId: 2,
+	},
+	{
+		name: 'Сырники',
+		count: 2,
+		categoryId: 2,
+	},
+	{
+		name: 'Чикен бокс',
+		count: 7,
+		categoryId: 3,
+	},
+	{
+		name: 'Завтрак на двоих',
+		count: 12,
+		categoryId: 3,
+	},
+	{
+		name: '3 пиццы 25 см',
+		count: 4,
+		categoryId: 3,
+	},
+	{
+		name: '2 пиццы',
+		count: 9,
+		categoryId: 3,
+	},
+	{
+		name: '3 пиццы 30 см',
+		count: 6,
+		categoryId: 3,
+	},
+	{
+		name: '3 пиццы 35 см',
+		count: 3,
+		categoryId: 3,
+	},
+	{
+		name: '4 закуски',
+		count: 5,
+		categoryId: 3,
+	},
+	{
+		name: '2 десерта',
+		count: 1,
+		categoryId: 3,
+	},
+	{
+		name: '2 напитка',
+		count: 18,
+		categoryId: 3,
+	},
+	{
+		name: '2 соуса',
+		count: 0,
+		categoryId: 3,
+	},
+	{
+		name: 'Паста Креветка и Песто',
+		count: 10,
+		categoryId: 4,
+	},
+	{
+		name: 'Паста Карбонара',
+		count: 7,
+		categoryId: 4,
+	},
+	{
+		name: 'Паста Песто',
+		count: 5,
+		categoryId: 4,
+	},
+	{
+		name: 'Привет из Баварии',
+		count: 3,
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Овощной микс',
+		count: 13,
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Цезарь',
+		count: 10,
+		categoryId: 4,
+	},
+	{
+		name: 'Салат Греческий',
+		count: 22,
+		categoryId: 4,
+	},
+	{
+		name: 'Креветки',
+		count: 4,
+		categoryId: 4,
+	},
+	{
+		name: 'Куриные наггетсы',
+		count: 32,
+		categoryId: 4,
+	},
+	{
+		name: 'Картофель из печи',
+		count: 5,
+		categoryId: 4,
+	},
+	{
+		name: 'Борщ с салом',
+		count: 3,
+		categoryId: 5,
+	},
+	{
+		name: 'Солянка',
+		count: 30,
+		categoryId: 5,
+	},
+	{
+		name: 'Уха',
+		count: 5,
+		categoryId: 5,
+	},
+	{
+		name: 'Окрошка',
+		count: 7,
+		categoryId: 5,
+	},
+	{
+		name: 'Лапша',
+		count: 3,
+		categoryId: 5,
+	},
+	{
+		name: 'Сырный',
+		count: 5,
+		categoryId: 6,
+	},
+	{
+		name: 'Чесночный',
+		count: 7,
+		categoryId: 6,
+	},
+	{
+		name: 'Барбекю',
+		count: 3,
+		categoryId: 6,
+	},
+	{
+		name: 'Медово-горчичный',
+		count: 1,
+		categoryId: 6,
+	},
+	{
+		name: 'Чизкейк',
+		count: 3,
+		categoryId: 7,
+	},
+	{
+		name: 'Карамельный чизкейк',
+		count: 7,
+		categoryId: 7,
+	},
+	{
+		name: 'Черничный маффин',
+		count: 5,
+		categoryId: 7,
+	},
+	{
+		name: 'Тирамису',
+		count: 3,
+		categoryId: 7,
+	},
+	{
+		name: 'Бруслетики',
+		count: 15,
+		categoryId: 7,
+	},
+	{
+		name: 'Фондан',
+		count: 5,
+		categoryId: 7,
+	},
+	{
+		name: 'Макарон манго-маракуйя',
+		count: 3,
+		categoryId: 7,
+	},
+	{
+		name: 'Лимонный сорбет',
+		count: 8,
+		categoryId: 7,
+	},
+	{
+		name: 'Клубничный сорбет',
+		count: 12,
+		categoryId: 7,
+	},
+	{
+		name: 'Капучино',
+		count: 5,
+		categoryId: 8,
+	},
+	{
+		name: 'Латте',
+		count: 10,
+		categoryId: 8,
+	},
+	{
+		name: 'Американо',
+		count: 3,
+		categoryId: 8,
+	},
+	{
+		name: 'Какао',
+		count: 2,
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Кола',
+		count: 28,
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Кола без сахара',
+		count: 5,
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Апельсин',
+		count: 24,
+		categoryId: 8,
+	},
+	{
+		name: 'Добрый Лимон-Лайм',
+		count: 15,
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый апельсин',
+		count: 41,
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый мультифрукт',
+		count: 34,
+		categoryId: 8,
+	},
+	{
+		name: 'Нектар Добрый яблоко',
+		count: 52,
+		categoryId: 8,
+	},
+	{
+		name: 'Вода негазированная',
+		count: 12,
+		categoryId: 8,
+	},
+];
+
 export const pizzas = [
 	{
 		name: 'Чилл Грилл',
