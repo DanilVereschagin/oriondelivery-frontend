@@ -47,7 +47,7 @@ const OrderList: React.FC<Props> = async ({ user, className }) => {
 										)}
 									>
 										{order.status === 'DONE'
-											? 'Завершен'
+											? 'Доставлен'
 											: order.status === 'PENDING'
 												? 'Ждёт оплаты'
 												: order.status === 'CANCELLED'

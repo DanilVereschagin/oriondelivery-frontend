@@ -15,6 +15,7 @@ import { ProfileFormType } from '@/components/schemas/ProfileFormSchema';
 import { Code } from '@/components/emails/code';
 import { DeliveryType } from '../constants/delivery';
 import { OrderStatus } from '@prisma/client';
+import { CommentFormType } from '@/components/schemas/CommentFormSchema';
 
 export async function createOrder(
 	data: CheckoutFormType,
@@ -287,6 +288,39 @@ export async function updateOrderStatus(orderId: number, status: OrderStatus) {
 			},
 			data: {
 				status,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFeedback(
+	data: CommentFormType,
+	userId: number,
+	productId: number
+) {
+	try {
+		const comment = await prisma.productFeedback.findFirst({
+			where: {
+				productId: Number(productId),
+				userId: Number(userId),
+			},
+		});
+
+		if (comment) {
+			return Error('Вы уже оставляли отзыв');
+		}
+
+		if (!userId) {
+			return Error('Пользователь не авторизован');
+		}
+
+		await prisma.productFeedback.create({
+			data: {
+				text: data.comment,
+				productId: Number(productId),
+				userId: Number(userId),
 			},
 		});
 	} catch (error) {

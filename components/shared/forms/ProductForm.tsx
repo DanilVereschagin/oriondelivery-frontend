@@ -6,7 +6,7 @@ import { Ingredient as IngredientType, Product } from '@prisma/client';
 import { cn } from '@/shared/lib/utils';
 import { ProductImage } from '../ProductImage';
 import { Button } from '@/components/ui';
-import { Plus } from 'lucide-react';
+import { PictureInPicture, Plus } from 'lucide-react';
 import { GroupVariants } from '../GroupVariants';
 import {
 	PizzaSize,
@@ -182,14 +182,25 @@ export const ProductForm: React.FC<Props> = ({
 					</div>
 				</div>
 
-				<Button
-					loading={loading}
-					onClick={handleAddToCart}
-					className='h-[55px] px-10 mt-10 text-base w-full rounded-lg'
-				>
-					<Plus className='w-5 h-5 mr-1' />
-					Добавить в корзину за {totalPrice || 0} ₽
-				</Button>
+				<div className='flex flex-row items-center gap-4 mt-10'>
+					<Button
+						loading={loading}
+						variant={'outline'}
+						onClick={handleAddToCart}
+						className='h-[55px] rounded-lg'
+					>
+						<PictureInPicture className='w-5 h-5 mr-1' />
+						Перейти на страницу товара
+					</Button>
+					<Button
+						loading={loading}
+						onClick={handleAddToCart}
+						className='h-[55px] rounded-lg'
+					>
+						<Plus className='w-5 h-5 mr-1' />
+						Добавить в корзину за {totalPrice || 0} ₽
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

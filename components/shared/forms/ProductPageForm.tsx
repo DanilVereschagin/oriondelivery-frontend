@@ -8,18 +8,15 @@ import {
 	PizzaType,
 	pizzaTypes,
 } from '@/shared/constants/pizza';
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from '@/components/ui/carousel';
 import { GroupVariants } from '@/components/shared/GroupVariants';
 import { ProductImage } from '@/components/shared/ProductImage';
 import { Title } from '../Title';
 import { AddCartItem } from '@/services/cart';
-import { Ingredient as IngredientType, Product } from '@prisma/client';
+import {
+	Ingredient as IngredientType,
+	Product,
+	ProductFeedback,
+} from '@prisma/client';
 import { FC, useEffect, useState } from 'react';
 import { useSet } from 'react-use';
 import { useCartStore } from '@/shared/store/cart';
@@ -29,13 +26,19 @@ import { Button } from '@/components/ui';
 import { Plus } from 'lucide-react';
 import { Ingredient } from '../Ingredient';
 import classes from '@/components/style/Roll.module.scss';
+import { Comments } from '../Comments';
 
 interface Props {
 	className?: string;
 	product: Product;
+	comments: ProductFeedback[] | undefined;
 }
 
-export const ProductPageForm: FC<Props> = ({ className, product }) => {
+export const ProductPageForm: FC<Props> = ({
+	className,
+	product,
+	comments,
+}) => {
 	const isPizza = Boolean(product.variants[0]?.pizzaType);
 	const [size, setSize] = useState<PizzaSize>(product.variants[0]?.size);
 	const [type, setType] = useState<PizzaType>(product.variants[0]?.pizzaType);
@@ -188,7 +191,7 @@ export const ProductPageForm: FC<Props> = ({ className, product }) => {
 
 					<div className='w-[700px] h-[500px] flex items-center justify-center'>
 						<ProductImage
-							imageClassName={ isPizza ? classes.roll_in_left_normal : ''}
+							imageClassName={isPizza ? classes.roll_in_left_normal : ''}
 							src={product.imageUrl}
 							alt={product.name}
 							size={size}
@@ -223,45 +226,7 @@ export const ProductPageForm: FC<Props> = ({ className, product }) => {
 					</Button>
 				</div>
 			</div>
-			<div className='flex flex-1 p-6'>
-				<div className='w-[700px] p-7 rounded-lg'>
-					<div className='w-[600px] h-[400px] flex items-center justify-center bg-violet-700 mb-20'>
-						Оставить отзыв
-					</div>
-
-					<Title text={'Отзывы'} size='md' className='font-extrabold mb-1' />
-
-					<Carousel
-						opts={{
-							align: 'start',
-						}}
-						orientation='vertical'
-						className='w-full max-w-[100%]'
-					>
-						<CarouselContent className='-mt-1 h-[500px]'>
-							{Array.from({ length: 5 }).map((_, index) => (
-								<CarouselItem
-									key={index}
-									className='pt-1 w-full h-full basis-1/3'
-								>
-									<div className='p-1 h-1/3'>
-										<div className='bg-violet-700 rounded-lg'>
-											<div className='flex items-center justify-center p-6'>
-												<span className='text-xl font-semibold'>
-													{index + 1}
-													<div>q</div>
-												</span>
-											</div>
-										</div>
-									</div>
-								</CarouselItem>
-							))}
-						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
-					</Carousel>
-				</div>
-			</div>
+			<Comments comments={comments} productId={product.id} />
 		</>
 	);
 };
