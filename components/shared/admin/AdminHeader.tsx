@@ -90,6 +90,14 @@ export const AdminHeader: React.FC<Props> = ({ className }) => {
 						{' '}
 						Статистика{' '}
 					</Button>
+					<Button
+						onClick={() => router.push('/admin/promocode')}
+						variant={'outline'}
+						className='text-red-500 border-red-500'
+					>
+						{' '}
+						Промокоды{' '}
+					</Button>
 				</div>
 
 				<div className='flex items-center gap-3'>

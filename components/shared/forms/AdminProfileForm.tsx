@@ -9,7 +9,7 @@ import { cn } from '@/shared/lib/utils';
 import { Button } from '@/components/ui';
 import { FormInput } from '@/components/ui/form';
 import { User } from '@prisma/client';
-import { updateAnotherUser } from '@/shared/actions/actions';
+import { deleteUser, updateAnotherUser } from '@/shared/actions/actions';
 import {
 	ProfileFormSchema,
 	ProfileFormType,
@@ -45,6 +45,17 @@ export const AdminProfileForm: React.FC<Props> = ({ data, className }) => {
 			router.refresh();
 		} catch (error) {
 			toast.error('Не удалось обновить данные, попробуйте позже');
+			console.log(error);
+		}
+	};
+
+	const onDelete = async () => {
+		try {
+			await deleteUser(userId);
+			toast.success('Пользователь успешно удалён');
+			router.push('/admin/users');
+		} catch (error) {
+			toast.error('Не удалось удалить пользователя, попробуйте позже');
 			console.log(error);
 		}
 	};
@@ -86,13 +97,24 @@ export const AdminProfileForm: React.FC<Props> = ({ data, className }) => {
 							error={form.formState.errors.confirmPassword?.message}
 						/>
 					</div>
-					<Button
-						onClick={form.handleSubmit(onSubmit)}
-						type='submit'
-						loading={form.formState.isSubmitting}
-					>
-						Сохранить
-					</Button>
+					<div className='flex flex-row gap-2'>
+						<Button
+							onClick={form.handleSubmit(onSubmit)}
+							type='submit'
+							loading={form.formState.isSubmitting}
+							className='w-full'
+						>
+							Сохранить
+						</Button>
+						<Button
+							onClick={onDelete}
+							type='submit'
+							loading={form.formState.isSubmitting}
+							className='w-full border border-red-500 text-red-500 bg-inherit hover:bg-inherit'
+						>
+							Удалить
+						</Button>
+					</div>
 				</form>
 			</FormProvider>
 		</Container>

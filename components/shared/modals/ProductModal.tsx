@@ -57,7 +57,7 @@ export const ProductModal: React.FC<Props> = ({ className, product }) => {
 			<DialogContent
 				className={cn(
 					className,
-					'p-0 w-[1060px] max-w-[calc(100vw-40px)] min-h-[500px] overflow-hidden'
+					'p-0 w-[1160px] max-w-[calc(100vw-40px)] min-h-[500px] overflow-hidden'
 				)}
 			>
 				<ProductForm

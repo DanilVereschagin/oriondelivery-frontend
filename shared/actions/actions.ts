@@ -16,6 +16,7 @@ import { Code } from '@/components/emails/code';
 import { DeliveryType } from '../constants/delivery';
 import { OrderStatus } from '@prisma/client';
 import { CommentFormType } from '@/components/schemas/CommentFormSchema';
+import { PromocodeFormType } from '@/components/schemas/PromocodeFormSchema';
 
 export async function createOrder(
 	data: CheckoutFormType,
@@ -230,6 +231,18 @@ export async function updateAnotherUser(data: ProfileFormType, id: number) {
 	}
 }
 
+export async function deleteUser(id: number) {
+	try {
+		await prisma.user.delete({
+			where: {
+				id,
+			},
+		});
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 export async function registerUser(data: RegistrationFormType) {
 	try {
 		const user = await prisma.user.findFirst({
@@ -321,6 +334,24 @@ export async function createFeedback(
 				text: data.comment,
 				productId: Number(productId),
 				userId: Number(userId),
+			},
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createPromocode(data: PromocodeFormType) {
+	try {
+		if (Number(data.sale) < 100) {
+			return Error('Скидка должна быть больше 100%');
+		}
+
+		await prisma.promocode.create({
+			data: {
+				code: data.code,
+				quantity: Number(data.quantity),
+				sale: Number(data.sale),
 			},
 		});
 	} catch (error) {

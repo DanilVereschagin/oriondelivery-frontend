@@ -21,6 +21,7 @@ import { AddCartItem } from '@/services/cart';
 import { getAll } from '@/services/ingredients';
 import { convertIngredientsToString } from '@/shared/lib/convert-ingredients-to-string';
 import classes from '@/components/style/Slide.module.scss';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	className?: string;
@@ -39,6 +40,8 @@ export const ProductForm: React.FC<Props> = ({
 	const [size, setSize] = useState<PizzaSize>(product.variants[0]?.size);
 	const [type, setType] = useState<PizzaType>(product.variants[0]?.pizzaType);
 	const [ingredients, setIngredients] = useState<IngredientType[]>([]);
+
+	const router = useRouter();
 
 	let info = '';
 	const [selectedIngredients, { toggle: toggleSelectedIngredients }] = useSet(
@@ -140,7 +143,7 @@ export const ProductForm: React.FC<Props> = ({
 			<div
 				className={cn(
 					classes.slide_in_right_normal,
-					'w-[490px] p-7 rounded-lg bg-violet-100'
+					'w-[550px] p-7 rounded-lg bg-violet-100'
 				)}
 			>
 				<Title text={product.name} size='md' className='font-bold text-black' />
@@ -186,7 +189,8 @@ export const ProductForm: React.FC<Props> = ({
 					<Button
 						loading={loading}
 						variant={'outline'}
-						onClick={handleAddToCart}
+						type='button'
+						onClick={() => window.location.assign(`/product/${product.id}`)}
 						className='h-[55px] rounded-lg'
 					>
 						<PictureInPicture className='w-5 h-5 mr-1' />
