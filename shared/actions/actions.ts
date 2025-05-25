@@ -141,7 +141,7 @@ export async function payOrder(data: PaymentFormType, orderId: number) {
 
 		const items = JSON.parse(order.items as string) as PlateCartItem[];
 
-		sendEmail(
+		await sendEmail(
 			order.email,
 			'Заказ оплачен',
 			Payment({
