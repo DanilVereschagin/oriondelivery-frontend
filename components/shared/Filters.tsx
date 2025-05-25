@@ -103,11 +103,6 @@ export const Filters: React.FC<Props> = ({ className }) => {
 				/>
 			</div>
 
-			{/* <div className='flex flex-col gap-4 mt-6'>
-				<FilterCheckbox text='Пиццы' value='1' />
-				<FilterCheckbox text='Другое' value='2' />
-			</div> */}
-
 			<CheckboxFiltersGroup
 				title='Тип теста'
 				className='mt-5'

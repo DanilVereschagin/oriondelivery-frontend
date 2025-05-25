@@ -94,12 +94,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({
 
 							<Link href={'/checkout'}>
 								<SheetTrigger asChild>
-									<Button
-										// onClick={() => setRedirecting(true)}
-										// loading={loading || redirecting}
-										type='submit'
-										className='w-full h-12 text-base'
-									>
+									<Button type='submit' className='w-full h-12 text-base'>
 										Оформить заказ
 										<Wallet className='w-5 ml-2' />
 									</Button>

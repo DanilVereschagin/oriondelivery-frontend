@@ -39,7 +39,7 @@ export const ProductsGroupList: React.FC<Props> = ({
 				}
 			},
 			{
-				rootMargin: '-50px 0px 0px 0px', // Смещаем зону обнаружения на 50px вверх
+				rootMargin: '-50px 0px 0px 0px',
 				threshold: 0.4,
 			}
 		);
@@ -86,20 +86,6 @@ export const ProductsGroupList: React.FC<Props> = ({
 				<PrevButton />
 				<NextButton />
 			</Carousel>
-
-			{/* <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)}>
-				{items.map((product, index) => (
-					<ProductCard
-						className={classes.slide_in_left_normal}
-						key={product.id}
-						id={product.id}
-						name={product.name}
-						price={product?.variants[0]?.price || 0}
-						imageUrl={product.imageUrl}
-						ingredients={convertIngredientsToString(product?.ingredients)}
-					/>
-				))}
-			</div> */}
 		</div>
 	);
 };

@@ -11,8 +11,8 @@ async function PaymentPage({ params: { id } }: { params: { id: string } }) {
 	}
 
 	return (
-		<Container className='flex my-10'>
-			<Payment order={order} />
+		<Container className='flex my-10 h-[65vh]'>
+			<Payment className='h-[100%]' order={order} />
 		</Container>
 	);
 }

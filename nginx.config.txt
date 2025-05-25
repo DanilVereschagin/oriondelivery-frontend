@@ -1,0 +1,64 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name oriondelivery.ru;
+
+    # Общие настройки производительности
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    client_max_body_size 100M;
+
+    # Статика Next.js
+    location /_next/static {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        
+        # Кэширование статики
+        expires 365d;
+        add_header Cache-Control "public, immutable, max-age=31536000";
+        access_log off;
+    }
+
+    # Основной прокси
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        
+        # Обязательные заголовки
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # WebSocket для HMR
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        
+        # Оптимизация производительности
+        proxy_buffering on;
+        proxy_buffer_size 4k;
+        proxy_buffers 8 16k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+        
+        # Таймауты
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+        
+        # Отключение кэша для динамического контента
+        proxy_no_cache 1;
+        proxy_cache_bypass 1;
+    }
+
+    # Блокировка служебных файлов
+    location ~ /\.(?!well-known) {
+        deny all;
+    }
+}
